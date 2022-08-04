@@ -4,6 +4,7 @@ import './AppContainer.css';
 import Header from "../Header/Header";
 import NewTask from "../NewTask/NewTask";
 import TaskList from "../TaskList/TaskList";
+import Footer from "../Footer/Footer";
 
 function AppContainer() {
     // Array 'tasks' store all tasks in the list
@@ -42,10 +43,13 @@ function AppContainer() {
     }
 
     return (
-        <main className='container'>
-            <Header />
-            <NewTask text={newTask} onSubmit={handleSubmit} onChange={handleChangeNewTask} />
-            <TaskList tasks={tasks} onChange={handleChangeIsDone} />
+        <main className='app-container'>
+            <div className='app-container__main-part'>
+                <Header />
+                <NewTask text={newTask} onSubmit={handleSubmit} onChange={handleChangeNewTask} />
+                <TaskList tasks={tasks} onChange={handleChangeIsDone} />
+            </div>
+            <Footer />
         </main>
     );
 }

@@ -1,8 +1,11 @@
-.container {
+.app-container {
     width: 600px;
     border: 1px solid var(--border-dark-gray);
-    padding: 0 1.25em;
-    background-color: var(--background-white);
     display: flex;
     flex-direction: column;
+}
+
+.app-container__main-part {
+    background-color: var(--background-white);
+    padding: 0 1.25em;
 }

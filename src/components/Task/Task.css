@@ -11,3 +11,7 @@
     text-decoration: line-through;
     color: var(--text-light-gray);
 }
+
+.task:last-child {
+    border-bottom: none;
+}

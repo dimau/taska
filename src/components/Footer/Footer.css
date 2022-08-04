@@ -1,0 +1,5 @@
+.footer {
+    height: 40px;
+    border-top: 1px solid var(--border-dark-gray);
+    background-color: #f4fce8;
+}
