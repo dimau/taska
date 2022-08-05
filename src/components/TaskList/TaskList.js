@@ -10,12 +10,18 @@ function TaskList(props) {
                (selectedFilter === 'filter-completed' && taskStatus === true);
     }
 
+    const handleClick = function(e) {
+        if (e.target.classList.contains('button-delete')) {
+           props.handleDelete(e.target.dataset.taskid);
+        }
+    }
+
     if (props.tasks.length === 0) {
         return <div>You don't have tasks, bastard!</div>
     }
 
     return (
-        <div className='task-list' onChange={props.onChange}>
+        <div className='task-list' onChange={props.onChange} onClick={handleClick}>
             {props.tasks.map( task => {
                 if (checkSelection(props.selectedFilter, task.isDone)) {
                     return <Task taskInfo={task} key={task.title} />
