@@ -1,0 +1,4 @@
+.filter {
+    display: flex;
+    gap: calc(3 * var(--basic-unit));
+}

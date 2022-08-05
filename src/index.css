@@ -5,6 +5,8 @@
   --border-dark-gray: #dddddd;
   --background-gray: #eeeeee;
   --background-white: #ffffff;
+  --basic-unit: 0.25rem; /* it's about 4px for standard 16px font-size */
+  --border-radius-standard: 0.25rem; /* it's about 4px for standard 16px font-size */
 }
 
 body {

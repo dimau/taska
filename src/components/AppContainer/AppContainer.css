@@ -3,6 +3,7 @@
     border: 1px solid var(--border-dark-gray);
     display: flex;
     flex-direction: column;
+    font-size: calc( 0.875 * 1em);
 }
 
 .app-container__main-part {

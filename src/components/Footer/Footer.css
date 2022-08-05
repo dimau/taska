@@ -1,5 +1,6 @@
 .footer {
-    height: 40px;
+    padding: calc( 3 * var(--basic-unit) );
     border-top: 1px solid var(--border-dark-gray);
     background-color: #f4fce8;
+    display: flex;
 }
