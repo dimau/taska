@@ -14,36 +14,13 @@ function AppContainer() {
     // String 'selectedFilter' hold a current Filter: filter-all, filter-active, filter-completed
     const [selectedFilter, setSelectedFilter] = useState('filter-all');
 
-    const handleSubmit = function(e) {
-        e.preventDefault();
+    const addNewTask = function() {
         if (newTask === '') return
         setTasks( prev => ([...prev, {taskid: uuidv4(), title: newTask, isDone: false}]));
         setNewTask("");
     };
 
-    const handleChangeNewTask = function (e) {
-        console.log("Вот что там: '" + e.target.value + "'");
-        setNewTask(e.target.value);
-    };
-
-    const handleChangeIsDone = function (e) {
-        // Search for task object with taskid == e.target.dataset.taskid
-        let index = tasks.findIndex( item => item.taskid === e.target.dataset.taskid );
-        if (index === undefined) return;
-
-        // Changing isDone status for the task in tasks
-        setTasks( prev => {
-            let next = prev.slice(); // We must return a new copy of the prev array for setTasks
-            next[index].isDone = e.target.checked;
-            return next;
-        });
-    };
-
-    const handleChangeFilter = function(e) {
-        setSelectedFilter(e.target.value);
-    };
-
-    const handleDelete = function(taskid) {
+    const deleteTask = function(taskid) {
         // Search for task object with taskid
         let index = tasks.findIndex( item => item.taskid === taskid );
         if (index === undefined) return;
@@ -56,6 +33,26 @@ function AppContainer() {
         });
     }
 
+    const toggleTaskIsDone = function (taskid, isDoneNewValue) {
+        let index = tasks.findIndex( item => item.taskid === taskid );
+        if (index === undefined) return;
+
+        // Changing isDone status for the task in tasks
+        setTasks( prev => {
+            let next = prev.slice(); // We must return a new copy of the prev array for setTasks
+            next[index].isDone = isDoneNewValue;
+            return next;
+        });
+    };
+
+    const changeNewTaskValue = function (newValue) {
+        setNewTask(newValue);
+    };
+
+    const changeSelectedFilter = function(newFilterValue) {
+        setSelectedFilter(newFilterValue);
+    };
+
     const uuidv4 = function() {
         return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
             (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
@@ -66,15 +63,15 @@ function AppContainer() {
         <main className='app-container'>
             <div className='app-container__main-part'>
                 <Header />
-                <NewTask text={newTask} onSubmit={handleSubmit} onChange={handleChangeNewTask} />
+                <NewTask text={newTask} addNewTask={addNewTask} changeNewTaskValue={changeNewTaskValue} />
                 <TaskList
                     tasks={tasks}
                     selectedFilter={selectedFilter}
-                    onChange={handleChangeIsDone}
-                    handleDelete={handleDelete}
+                    toggleTaskIsDone={toggleTaskIsDone}
+                    deleteTask={deleteTask}
                 />
             </div>
-            <Footer selectedFilter={selectedFilter} onChangeFilter={handleChangeFilter} />
+            <Footer selectedFilter={selectedFilter} changeSelectedFilter={changeSelectedFilter} />
         </main>
     );
 }

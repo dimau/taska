@@ -5,7 +5,7 @@ import Filter from "../Filter/Filter";
 function Footer(props) {
     return (
         <footer className='footer'>
-            <Filter selectedFilter={props.selectedFilter} onChangeFilter={props.onChangeFilter} />
+            <Filter selectedFilter={props.selectedFilter} changeSelectedFilter={props.changeSelectedFilter} />
         </footer>
     );
 }

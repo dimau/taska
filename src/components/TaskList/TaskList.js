@@ -11,9 +11,14 @@ function TaskList(props) {
     }
 
     const handleClick = function(e) {
+        // If user click delete button for the task
         if (e.target.classList.contains('button-delete')) {
-           props.handleDelete(e.target.dataset.taskid);
+           props.deleteTask(e.target.dataset.taskid);
         }
+    }
+
+    const handleChange = function(e) {
+        props.toggleTaskIsDone(e.target.dataset.taskid, e.target.checked);
     }
 
     if (props.tasks.length === 0) {
@@ -21,7 +26,7 @@ function TaskList(props) {
     }
 
     return (
-        <div className='task-list' onChange={props.onChange} onClick={handleClick}>
+        <div className='task-list' onChange={handleChange} onClick={handleClick}>
             {props.tasks.map( task => {
                 if (checkSelection(props.selectedFilter, task.isDone)) {
                     return <Task taskInfo={task} key={task.title} />
