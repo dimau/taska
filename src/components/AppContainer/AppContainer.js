@@ -8,7 +8,7 @@ import Footer from "../Footer/Footer";
 
 function AppContainer() {
     // Array 'tasks' store all tasks in the list
-    const [tasks, setTasks] = useState([{taskid: '1', title: "Task number 1", isDone: false}, {taskid: '2', title: 'Task number 2', isDone: true}]);
+    const [tasks, setTasks] = useState([{taskid: '1', title: "Купить бэху и гонять на ней как фрайер по Кипру", isDone: false}, {taskid: '2', title: 'Свалить из Рашки в Армяшку', isDone: false}, {taskid: '3', title: 'Сделано уже нах', isDone: true}]);
     // String 'newTask' hold a current value of the input in NewTask component
     const [newTask, setNewTask] = useState("");
     // String 'selectedFilter' hold a current Filter: filter-all, filter-active, filter-completed
@@ -16,12 +16,13 @@ function AppContainer() {
 
     const handleSubmit = function(e) {
         e.preventDefault();
-        console.log(e);
+        if (newTask === '') return
         setTasks( prev => ([...prev, {taskid: uuidv4(), title: newTask, isDone: false}]));
         setNewTask("");
     };
 
     const handleChangeNewTask = function (e) {
+        console.log("Вот что там: '" + e.target.value + "'");
         setNewTask(e.target.value);
     };
 
