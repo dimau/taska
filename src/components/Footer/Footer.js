@@ -1,6 +1,6 @@
 import React from "react";
 import './Footer.css';
-import Filter from "../Filter/Filter";
+import Filter from "../../features/filter/Filter/Filter";
 
 function Footer(props) {
     return (

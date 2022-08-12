@@ -1,15 +1,20 @@
 import React from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {changeNewTaskValue, selectNewTask} from "../newTaskSlice";
 import './NewTask.css';
+import {addNewTask} from "../../taskList/taskListSlice";
 
 function NewTask(props) {
+    const newTaskTitle = useSelector(selectNewTask);
+    const dispatch = useDispatch();
 
     const handleSubmit = function(e) {
         e.preventDefault();
-        props.addNewTask();
+        dispatch( addNewTask(newTaskTitle) );
     }
 
     const handleChange = function(e) {
-       props.changeNewTaskValue(e.target.value);
+        dispatch( changeNewTaskValue(e.target.value) );
     }
 
     return (
@@ -18,7 +23,7 @@ function NewTask(props) {
                 type='text'
                 className='new-task__input'
                 placeholder='Add New'
-                value={props.text}
+                value={newTaskTitle}
                 onChange={handleChange}
                 autoFocus
             />
