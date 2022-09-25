@@ -1,35 +1,26 @@
-/*********************************************/
-/* Reducer for slice of state                */
-/*********************************************/
+import { createSlice } from "@reduxjs/toolkit";
+import { taskListActions } from "../taskList/taskListSlice";
 
-const initialNewTask = "";
+const newTaskSlice = createSlice({
+  name: "newTask",
+  initialState: "",
+  reducers: {
+    changeNewTaskValue: (state, action) => action.payload,
+  },
+  extraReducers: (builder) => {
+    builder.addCase(taskListActions.addNewTask.type, () => "");
+  },
+});
 
-export function newTaskReducer(newTask = initialNewTask, action) {
-    switch (action.type) {
-        case 'newTask/changeNewTaskValue':
-            return action.payload;
-        case 'tasks/addNewTask':
-            return '';
-        default:
-            return newTask;
-    }
-}
+export const newTaskReducer = newTaskSlice.reducer;
+export const newTaskActions = {
+  ...newTaskSlice.actions,
+};
 
 /*********************************************/
 /* Selector functions for slice state        */
 /*********************************************/
 
 export function selectNewTask(state) {
-    return state.newTask;
-}
-
-/*********************************************/
-/* Action Creators functions                 */
-/*********************************************/
-
-export function changeNewTaskValue(newValue) {
-    return {
-        type: 'newTask/changeNewTaskValue',
-        payload: newValue
-    };
+  return state.newTask;
 }

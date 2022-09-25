@@ -1,16 +1,16 @@
-/*********************************************/
-/* Reducer for slice of state                */
-/*********************************************/
+import {createSlice} from "@reduxjs/toolkit";
 
-const initialFilter = "filter-all";
+const filterSlice = createSlice({
+    name: "filter",
+    initialState: "filter-all",
+    reducers: {
+        changeCurrentFilter: (state, action) => action.payload,
+    },
+});
 
-export function filterReducer(filter = initialFilter, action) {
-    switch (action.type) {
-        case 'filter/changeCurrentFilter':
-            return action.payload;
-        default:
-            return filter;
-    }
+export const filterReducer = filterSlice.reducer;
+export const filterSliceActions = {
+    ...filterSlice.actions,
 }
 
 /*********************************************/
@@ -19,15 +19,4 @@ export function filterReducer(filter = initialFilter, action) {
 
 export function selectCurrentFilter(state) {
     return state.selectedFilter;
-}
-
-/*********************************************/
-/* Action Creators functions                 */
-/*********************************************/
-
-export function changeCurrentFilter(newFilterValue) {
-    return {
-        type: 'filter/changeCurrentFilter',
-        payload: newFilterValue
-    };
 }
