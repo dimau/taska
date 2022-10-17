@@ -1,15 +1,14 @@
 import React from "react";
 import "./TaskList.css";
 import Task from "../Task/Task";
-import { useDispatch, useSelector } from "react-redux";
 import { selectAllFilteredTasks, taskListActions } from "../taskListSlice";
 import { selectCurrentFilter } from "../../filter/filterSlice";
 import { RootState } from "../../../app/store";
-import { useAppDispatch } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 
 function TaskList() {
-  const currentFilter = useSelector(selectCurrentFilter);
-  const allFilteredTasks = useSelector((state: RootState) =>
+  const currentFilter = useAppSelector(selectCurrentFilter);
+  const allFilteredTasks = useAppSelector((state: RootState) =>
     selectAllFilteredTasks(state, currentFilter)
   );
   const dispatch = useAppDispatch();

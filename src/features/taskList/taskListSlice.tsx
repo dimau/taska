@@ -31,13 +31,13 @@ export const taskListSlice = createSlice({
       });
     },
     deleteTask: (state, action: PayloadAction<string>) => {
-      getTasksWithoutDeletedTask(state, action.payload);
+      return getTasksWithoutDeletedTask(state, action.payload);
     },
     toggleTaskIsDone: (
       state,
       action: PayloadAction<{ taskId: string; isDoneNewValue: boolean }>
     ) => {
-      getTasksWithToggledTaskIsDone(
+      return getTasksWithToggledTaskIsDone(
         state,
         action.payload.taskId,
         action.payload.isDoneNewValue

@@ -1,12 +1,12 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { newTaskActions, selectNewTask } from "../newTaskSlice";
 import "./NewTask.css";
 import { taskListActions } from "../../taskList/taskListSlice";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 
 function NewTask() {
-  const newTaskTitle = useSelector(selectNewTask);
-  const dispatch = useDispatch();
+  const newTaskTitle = useAppSelector(selectNewTask);
+  const dispatch = useAppDispatch();
 
   const handleSubmit = function (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();

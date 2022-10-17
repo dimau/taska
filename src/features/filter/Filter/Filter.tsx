@@ -1,12 +1,12 @@
 import React from "react";
 import "./Filter.css";
 import FilterButton from "../FilterButton/FilterButton";
-import { useDispatch, useSelector } from "react-redux";
 import { filterSliceActions, selectCurrentFilter } from "../filterSlice";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 
 function Filter() {
-  const selectedFilter = useSelector(selectCurrentFilter);
-  const dispatch = useDispatch();
+  const selectedFilter = useAppSelector(selectCurrentFilter);
+  const dispatch = useAppDispatch();
 
   const handleChange = function (e: React.ChangeEvent<HTMLInputElement>) {
     dispatch(filterSliceActions.changeCurrentFilter(e.target.value));
