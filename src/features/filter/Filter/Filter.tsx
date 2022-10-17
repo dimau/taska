@@ -8,7 +8,7 @@ function Filter() {
   const selectedFilter = useSelector(selectCurrentFilter);
   const dispatch = useDispatch();
 
-  const handleChange = function (e) {
+  const handleChange = function (e: React.ChangeEvent<HTMLInputElement>) {
     dispatch(filterSliceActions.changeCurrentFilter(e.target.value));
   };
 

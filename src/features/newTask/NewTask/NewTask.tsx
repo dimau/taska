@@ -8,12 +8,12 @@ function NewTask() {
   const newTaskTitle = useSelector(selectNewTask);
   const dispatch = useDispatch();
 
-  const handleSubmit = function (e) {
+  const handleSubmit = function (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     dispatch(taskListActions.addNewTask(newTaskTitle));
   };
 
-  const handleChange = function (e) {
+  const handleChange = function (e: React.ChangeEvent<HTMLInputElement>) {
     dispatch(newTaskActions.changeNewTaskValue(e.target.value));
   };
 

@@ -1,18 +1,23 @@
 import React from "react";
 import "./TaskActionPanel.css";
+import { ITask } from "../../../interfaces";
 
-function TaskActionPanel(props) {
+interface TaskActionPanelProps {
+  taskInfo: ITask;
+}
+
+function TaskActionPanel({ taskInfo }: TaskActionPanelProps) {
   return (
     <div className="task-action-panel">
       <span
         className="material-symbols-outlined button-edit"
-        data-taskid={props.taskInfo.taskId}
+        data-taskid={taskInfo.taskId}
       >
         edit
       </span>
       <span
         className="material-symbols-outlined button-delete"
-        data-taskid={props.taskInfo.taskId}
+        data-taskid={taskInfo.taskId}
       >
         delete
       </span>

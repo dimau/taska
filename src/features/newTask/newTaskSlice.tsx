@@ -1,11 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { taskListActions } from "../taskList/taskListSlice";
+import { RootState } from "../../app/store";
+
+const initialState = "";
 
 const newTaskSlice = createSlice({
   name: "newTask",
-  initialState: "",
+  initialState,
   reducers: {
-    changeNewTaskValue: (state, action) => action.payload,
+    changeNewTaskValue: (state, action: PayloadAction<string>) =>
+      action.payload,
   },
   extraReducers: (builder) => {
     builder.addCase(taskListActions.addNewTask.type, () => "");
@@ -21,6 +25,6 @@ export const newTaskActions = {
 /* Selector functions for slice state        */
 /*********************************************/
 
-export function selectNewTask(state) {
+export function selectNewTask(state: RootState) {
   return state.newTask;
 }
