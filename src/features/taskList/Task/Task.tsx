@@ -1,5 +1,6 @@
 import React from "react";
-import "./Task.css";
+import styles from "./Task.module.css";
+import hoverStyles from "./TaskHover.module.css";
 import TaskActionPanel from "../TaskActionPanel/TaskActionPanel";
 import { ITask } from "../../../interfaces";
 
@@ -9,16 +10,19 @@ interface TaskProps {
 
 function Task({ taskInfo }: TaskProps) {
   return (
-    <div className={`task ${taskInfo.isDone ? "task_done" : ""}`}>
+    <div
+      className={`${styles.task} ${taskInfo.isDone ? styles.taskDone : ""} ${
+        hoverStyles.taskHoverParent
+      }`}
+    >
       <input
         type="checkbox"
-        className="task__checkbox"
         checked={taskInfo.isDone}
         onChange={() => {}} // we will handle this event on the TaskList component level, so it's just to remove warning in browser
         data-taskid={taskInfo.taskId}
         id={taskInfo.taskId}
       />
-      <label className="task__title" htmlFor={taskInfo.taskId}>
+      <label className={styles.taskTitle} htmlFor={taskInfo.taskId}>
         {taskInfo.title}
       </label>
       <TaskActionPanel taskInfo={taskInfo} />

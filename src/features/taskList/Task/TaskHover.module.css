@@ -1,0 +1,13 @@
+/* Because TaskActionPanel component have to be shown only when mouse pointer is hovering Task component */
+/* We use this workaround solution to provide this type of connection between these components when hovering */
+
+.taskHoverParent {
+}
+
+.taskHoverChild {
+}
+
+.taskHoverParent:hover .taskHoverChild {
+  display: flex;
+  gap: var(--basic-unit);
+}

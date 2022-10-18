@@ -2,7 +2,7 @@ import React from "react";
 import NewTask from "../../features/newTask/NewTask/NewTask";
 import TaskList from "../../features/taskList/TaskList/TaskList";
 import Filter from "../../features/filter/Filter/Filter";
-import styles from "./styles.module.css";
+import styles from "./TaskListPage.module.css";
 import { TasksListHeader } from "../../components/TasksListHeader/TasksListHeader";
 
 const TaskListPage = () => {

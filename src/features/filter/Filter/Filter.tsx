@@ -1,5 +1,5 @@
 import React from "react";
-import "./Filter.css";
+import styles from "./Filter.module.css";
 import FilterButton from "../FilterButton/FilterButton";
 import { filterSliceActions, selectCurrentFilter } from "../filterSlice";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
@@ -13,7 +13,7 @@ function Filter() {
   };
 
   return (
-    <div className="filter" onChange={handleChange}>
+    <div className={styles.filter} onChange={handleChange}>
       <FilterButton
         value="filter-all"
         label="All"

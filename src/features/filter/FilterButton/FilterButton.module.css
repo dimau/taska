@@ -1,0 +1,24 @@
+.filterButton {
+  cursor: pointer;
+  position: relative;
+}
+
+.filterButtonInput {
+  position: absolute;
+  outline: none;
+  clip: rect(0, 0, 0, 0);
+}
+
+.filterButtonControl {
+  padding: calc(2 * var(--basic-unit)) calc(3 * var(--basic-unit));
+  border: 1px solid transparent;
+  border-radius: var(--border-radius-standard);
+}
+
+.filterButtonControl:hover {
+  border: 1px solid var(--border-light-gray);
+}
+
+.filterButtonInput:checked ~ .filterButtonControl {
+  border: 1px solid var(--border-dark-gray);
+}

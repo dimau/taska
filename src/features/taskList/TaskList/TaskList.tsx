@@ -1,5 +1,5 @@
 import React from "react";
-import "./TaskList.css";
+import styles from "./TaskList.module.css";
 import Task from "../Task/Task";
 import { selectAllFilteredTasks, taskListActions } from "../taskListSlice";
 import { selectCurrentFilter } from "../../filter/filterSlice";
@@ -44,7 +44,11 @@ function TaskList() {
   }
 
   return (
-    <div className="task-list" onChange={handleChange} onClick={handleClick}>
+    <div
+      className={styles.taskList}
+      onChange={handleChange}
+      onClick={handleClick}
+    >
       {allFilteredTasks.map((task) => (
         <Task taskInfo={task} key={task.title} />
       ))}

@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./styles.module.css";
+import styles from "./SiteLayout.module.css";
 import { Outlet } from "react-router-dom";
 import { SiteHeader } from "../../components/SiteHeader/SiteHeader";
 import { SiteFooter } from "../../components/SiteFooter/SiteFooter";
