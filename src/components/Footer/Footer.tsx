@@ -1,11 +1,16 @@
 import React from "react";
-import "./Footer.css";
-import Filter from "../../features/filter/Filter/Filter";
+import styles from "./styles.module.css";
+import { NavLink } from "react-router-dom";
 
 function Footer() {
   return (
-    <footer className="footer">
-      <Filter />
+    <footer className={styles.root}>
+      <NavLink to="/" className={styles.link}>
+        Home
+      </NavLink>
+      <NavLink to="/tasks" className={styles.link}>
+        Tasks
+      </NavLink>
     </footer>
   );
 }

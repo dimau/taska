@@ -1,12 +1,10 @@
 import React from "react";
 import styles from "./styles.module.css";
 
-function Header() {
+export function TasksListHeader() {
   return (
     <div className={styles.header}>
-      <h1 className={styles.headerTitle}>It's Header in main part</h1>
+      <h1 className={styles.headerTitle}>To do</h1>
     </div>
   );
 }
-
-export default Header;

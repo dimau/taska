@@ -1,8 +1,4 @@
 .App {
   min-height: 100vh;
-  padding-top: 2em;
   background-color: var(--background-gray);
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
 }
