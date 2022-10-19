@@ -1,12 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import styles from "./HomePage.module.css";
 
 const HomePage = () => {
   return (
-    <>
-      <h1>Home page</h1>
-      <Link to="/tasks">Task List</Link>
-    </>
+    <main className={styles.root}>
+      <div className="container">
+        <div className={styles.homePageContent}>
+          <h1>Home page</h1>
+        </div>
+      </div>
+    </main>
   );
 };
 

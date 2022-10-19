@@ -1,11 +1,22 @@
-.header {
-  text-align: center;
+.root {
 }
 
-.headerTitle {
-  margin: 0;
-  padding: 0.5em;
-  text-transform: uppercase;
+.headerContent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px solid black;
+  padding: calc(2 * var(--basic-unit)) 0;
+}
+
+.logo {
+  font-family: var(--font-family-logo);
+  font-weight: bold;
+  font-size: 2rem;
   color: var(--text-dark-gray);
-  font-size: 2em;
+  text-decoration: none;
+}
+
+.menu {
+  flex-grow: 1;
 }

@@ -7,13 +7,15 @@ import { TasksListHeader } from "../../components/TasksListHeader/TasksListHeade
 
 const TaskListPage = () => {
   return (
-    <main className={styles.appContainer}>
-      <div className={styles.appContainerMainPart}>
-        <TasksListHeader />
-        <NewTask />
-        <TaskList />
+    <main className={styles.root}>
+      <div className="container">
+        <div className={styles.taskListPageContent}>
+          <TasksListHeader />
+          <NewTask />
+          <TaskList />
+          <Filter />
+        </div>
       </div>
-      <Filter />
     </main>
   );
 };
