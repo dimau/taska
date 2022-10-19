@@ -5,13 +5,16 @@
   --border-dark-gray: #dddddd;
   --background-gray: #fffefc;
   --background-white: #ffffff;
+  --ui-primary: #3b8ea5;
   --basic-unit: 0.25rem; /* it's about 4px for standard 16px font-size */
   --border-radius-standard: 0.25rem; /* it's about 4px for standard 16px font-size */
-  --font-family-logo: roboto, san-serif;
+  --font-family-logo: "Roboto", sans-serif;
+  --font-family-main: "Roboto", sans-serif;
 }
 
 body {
   box-sizing: border-box;
+  font-family: var(--font-family-main);
 }
 
 .container {

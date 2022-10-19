@@ -5,6 +5,5 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border-top: 1px solid black;
   padding: calc(4 * var(--basic-unit)) 0;
 }

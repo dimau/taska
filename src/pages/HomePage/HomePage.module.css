@@ -3,4 +3,25 @@
 }
 
 .homePageContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.firstBlock {
+  display: flex;
+  flex-direction: row;
+}
+
+.textBlock {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-dark-gray);
+}
+
+.imgBlock {
+  width: 50%;
+  max-width: 1000px;
 }

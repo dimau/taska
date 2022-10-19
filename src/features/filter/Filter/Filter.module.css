@@ -1,7 +1,7 @@
 .filter {
-    display: flex;
-    gap: calc(3 * var(--basic-unit));
-    padding: calc( 3 * var(--basic-unit) );
-    border-top: 1px solid var(--border-dark-gray);
-    background-color: #f4fce8;
+  display: flex;
+  gap: calc(3 * var(--basic-unit));
+  padding: calc(3 * var(--basic-unit));
+  border-top: 1px solid var(--border-dark-gray);
+  background-color: var(--ui-primary);
 }

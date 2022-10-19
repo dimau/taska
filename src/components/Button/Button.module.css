@@ -1,0 +1,19 @@
+.root {
+  text-decoration: none;
+  padding: calc(4 * var(--basic-unit)) calc(8 * var(--basic-unit));
+  background-color: var(--ui-primary);
+  color: white;
+  letter-spacing: calc(0.4 * var(--basic-unit));
+}
+
+.big {
+  font-size: 1.5rem;
+}
+
+.middle {
+  font-size: 1rem;
+}
+
+.small {
+  font-size: 0.7rem;
+}

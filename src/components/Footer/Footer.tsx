@@ -1,16 +1,16 @@
 import React from "react";
 import styles from "./Footer.module.css";
-import { NavLink } from "react-router-dom";
 
 function Footer() {
   return (
     <footer className={styles.root}>
-      <NavLink to="/" className={styles.link}>
-        Home
-      </NavLink>
-      <NavLink to="/tasks" className={styles.link}>
-        Tasks
-      </NavLink>
+      <div className="container">
+        <div className={styles.footerContent}>
+          <span>Creator: Dmitrii Ushakov, 2022</span>
+          <a href="mailto:dimau777@gmail.com">Send me email</a>
+          <a href="https://t.me/UshakovDmitrii">Send me telegram message</a>
+        </div>
+      </div>
     </footer>
   );
 }

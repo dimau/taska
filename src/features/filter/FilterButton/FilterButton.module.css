@@ -1,6 +1,7 @@
 .filterButton {
   cursor: pointer;
   position: relative;
+  color: white;
 }
 
 .filterButtonInput {
