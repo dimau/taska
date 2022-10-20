@@ -1,7 +1,7 @@
 import React from "react";
 import { newTaskActions, selectNewTask } from "../newTaskSlice";
 import styles from "./NewTask.module.css";
-import { taskListActions } from "../../taskList/taskListSlice";
+import { taskListActions } from "../../taskList/tasksSlice";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 
 function NewTask() {
@@ -10,7 +10,7 @@ function NewTask() {
 
   const handleSubmit = function (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    dispatch(taskListActions.addNewTask(newTaskTitle));
+    dispatch(taskListActions.addNewTask({ title: newTaskTitle }));
   };
 
   const handleChange = function (e: React.ChangeEvent<HTMLInputElement>) {

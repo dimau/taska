@@ -18,6 +18,8 @@ body {
 }
 
 .container {
+  margin: 0 auto;
+  max-width: 1280px;
   padding-left: calc(4 * var(--basic-unit));
   padding-right: calc(4 * var(--basic-unit));
 }

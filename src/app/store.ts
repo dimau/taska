@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import { newTaskReducer } from "../features/newTask/newTaskSlice";
-import { taskListReducer } from "../features/taskList/taskListSlice";
+import { taskListReducer } from "../features/taskList/tasksSlice";
 import { filterReducer } from "../features/filter/filterSlice";
 import { configureStore } from "@reduxjs/toolkit";
 

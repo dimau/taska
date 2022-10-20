@@ -6,33 +6,39 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 import { ITask } from "../../interfaces";
 
-type TaskListState = ITask[];
+export interface TaskListStateEntities {
+  [id: string]: ITask;
+}
 
-const initialTasks: TaskListState = [
-  {
-    taskId: "1",
-    title: "Купить бэху и гонять на ней как фрайер по Кипру",
-    isDone: false,
-  },
-  { taskId: "2", title: "Свалить из Рашки в Армяшку", isDone: false },
-  { taskId: "3", title: "Сделано уже нах", isDone: true },
-];
+export interface TaskListState {
+  entities: TaskListStateEntities;
+  ids: string[];
+}
 
-export const taskListSlice = createSlice({
+const initialState: TaskListState = {
+  entities: {},
+  ids: [],
+};
+
+export const tasksSlice = createSlice({
   name: "tasks",
-  initialState: initialTasks,
+  initialState,
   reducers: {
-    addNewTask: (state, action: PayloadAction<string>) => {
-      if (action.payload === "") return state;
-      state.push({
-        taskId: uuidv4(),
-        title: action.payload,
+    addNewTask: (state, action: PayloadAction<{ title: string }>) => {
+      if (action.payload.title === "") return state;
+      let taskId = uuidv4();
+      state.entities[taskId] = {
+        taskId: taskId,
+        title: action.payload.title,
         isDone: false,
-      });
+      };
+      state.ids.push(taskId);
     },
-    deleteTask: (state, action: PayloadAction<string>) => {
-      return getTasksWithoutDeletedTask(state, action.payload);
+
+    deleteTask: (state, action: PayloadAction<{ taskId: string }>) => {
+      return getTasksWithoutDeletedTask(state, action.payload.taskId);
     },
+
     toggleTaskIsDone: (
       state,
       action: PayloadAction<{ taskId: string; isDoneNewValue: boolean }>
@@ -43,20 +49,35 @@ export const taskListSlice = createSlice({
         action.payload.isDoneNewValue
       );
     },
+
+    successLoading: (state, action: PayloadAction<TaskListState>) => {
+      console.log(action.payload);
+      state.entities = {
+        //TODO: change to "for" cycle with checking modification timestamp for each task
+        ...state.entities,
+        ...action.payload.entities,
+      };
+      state.ids = Array.from(new Set([...state.ids, ...action.payload.ids]));
+      return state;
+    },
   },
 });
 
-export const taskListReducer = taskListSlice.reducer;
+export const taskListReducer = tasksSlice.reducer;
 export const taskListActions = {
-  ...taskListSlice.actions,
+  ...tasksSlice.actions,
 };
 
 /*********************************************/
 /* Selector functions for slice state        */
 /*********************************************/
 
-export function selectAllTasks(state: RootState) {
+export function selectTasksSlice(state: RootState) {
   return state.tasks;
+}
+
+export function selectAllTasks(state: RootState) {
+  return Object.values(selectTasksSlice(state).entities);
 }
 
 export function selectAllFilteredTasks(state: RootState, filter: string) {
@@ -69,36 +90,37 @@ export function selectAllFilteredTasks(state: RootState, filter: string) {
 /*********************************************/
 
 const getTasksWithoutDeletedTask = function (
-  tasks: TaskListState,
+  state: TaskListState,
   taskId: string
 ) {
   // Search for task object with taskId
-  let index = tasks.findIndex((item) => item.taskId === taskId);
-  if (index === undefined) return tasks;
+  if (!(taskId in state.entities)) return state;
+  delete state.entities[taskId];
+  let index = state.ids.findIndex((item) => item === taskId);
 
   // Delete the task from tasks
-  tasks.splice(index, 1);
-  return tasks;
+  state.ids.splice(index, 1);
+  return state;
 };
 
 /**
  *
- * @param {array} tasks
+ * @param {array} state
  * @param {string} taskId
  * @param {bool} isDoneNewValue
  * @returns {array}
  */
 const getTasksWithToggledTaskIsDone = function (
-  tasks: TaskListState,
+  state: TaskListState,
   taskId: string,
   isDoneNewValue: boolean
 ) {
-  let index = tasks.findIndex((item) => item.taskId === taskId);
-  if (index === undefined) return tasks;
+  // Search for task object with taskId
+  if (!(taskId in state.entities)) return state;
 
   // Changing isDone status for the task in tasks
-  tasks[index].isDone = isDoneNewValue;
-  return tasks;
+  state.entities[taskId].isDone = isDoneNewValue;
+  return state;
 };
 
 /**

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { taskListActions } from "../taskList/taskListSlice";
+import { taskListActions } from "../taskList/tasksSlice";
 import { RootState } from "../../app/store";
 
 const initialState = "";
