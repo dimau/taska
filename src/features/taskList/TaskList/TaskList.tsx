@@ -1,16 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./TaskList.module.css";
 import Task from "../Task/Task";
-import {
-  selectAllFilteredTasks,
-  selectTasksSlice,
-  taskListActions,
-  TaskListState,
-} from "../tasksSlice";
+import { selectAllFilteredTasks, taskListActions } from "../tasksSlice";
 import { selectCurrentFilter } from "../../filter/filterSlice";
-import { RootState, store } from "../../../app/store";
+import { RootState } from "../../../app/store";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { loadTasksIfNotExist } from "../middlewares/loadTasksIfNotExist";
 
 function TaskList() {
   const currentFilter = useAppSelector(selectCurrentFilter);
@@ -18,41 +12,6 @@ function TaskList() {
     selectAllFilteredTasks(state, currentFilter)
   );
   const dispatch = useAppDispatch();
-
-  // try to load tasks from LocalStorage
-  // @ts-ignore // TODO
-  useEffect(() => {
-    let tasksJSON = localStorage.getItem("tasks");
-    if (!tasksJSON) return;
-    const tasks: TaskListState = JSON.parse(tasksJSON);
-    dispatch(taskListActions.successLoading(tasks));
-  }, []);
-
-  // we have to save all tasks into Local Storage before closing the tab
-  useEffect(() => {
-    let unionOfTasks: TaskListState;
-    const tasksFromLocalStorageJSON = localStorage.getItem("tasks");
-    if (tasksFromLocalStorageJSON) {
-      const tasksFromLocalStorage = JSON.parse(
-        tasksFromLocalStorageJSON
-      ) as TaskListState;
-      const tasksFromCurrentState = selectTasksSlice(store.getState());
-
-      unionOfTasks = {
-        entities: {
-          ...tasksFromLocalStorage.entities,
-          ...tasksFromCurrentState.entities,
-        },
-        ids: Array.from(
-          new Set([...tasksFromLocalStorage.ids, ...tasksFromCurrentState.ids])
-        ),
-      };
-    } else {
-      unionOfTasks = selectTasksSlice(store.getState());
-    }
-
-    localStorage.setItem("tasks", JSON.stringify(unionOfTasks)); // TODO need to JSON.stringify(allFilteredTasks) all Tasks
-  }, [allFilteredTasks]); // TODO need to JSON.stringify(allFilteredTasks) all Tasks
 
   const handleClick = function (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>

@@ -50,16 +50,16 @@ export const tasksSlice = createSlice({
       );
     },
 
-    successLoading: (state, action: PayloadAction<TaskListState>) => {
-      console.log(action.payload);
-      state.entities = {
-        //TODO: change to "for" cycle with checking modification timestamp for each task
-        ...state.entities,
-        ...action.payload.entities,
-      };
-      state.ids = Array.from(new Set([...state.ids, ...action.payload.ids]));
-      return state;
-    },
+    // successLoading: (state, action: PayloadAction<TaskListState>) => {
+    //   console.log(action.payload);
+    //   state.entities = {
+    //     //TODO: change to "for" cycle with checking modification timestamp for each task
+    //     ...state.entities,
+    //     ...action.payload.entities,
+    //   };
+    //   state.ids = Array.from(new Set([...state.ids, ...action.payload.ids]));
+    //   return state;
+    // },
   },
 });
 
