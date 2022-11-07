@@ -8,12 +8,20 @@
   padding: calc(4 * var(--basic-unit)) 0;
 }
 
-.logo {
+.logoBlock {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   font-family: var(--font-family-logo);
   font-weight: bold;
   font-size: 2rem;
   color: var(--text-dark-gray);
   text-decoration: none;
+}
+
+.logoImg {
+  height: 32px;
+  width: 32px;
 }
 
 .menu {
