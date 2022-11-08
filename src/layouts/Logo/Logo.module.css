@@ -1,13 +1,3 @@
-.root {
-}
-
-.headerContent {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: calc(4 * var(--basic-unit)) 0;
-}
-
 .logoBlock {
   display: flex;
   align-items: center;
@@ -22,8 +12,4 @@
 .logoImg {
   height: 32px;
   width: 32px;
-}
-
-.menu {
-  flex-grow: 1;
 }

@@ -1,0 +1,13 @@
+.root {
+}
+
+.headerContent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: calc(4 * var(--basic-unit)) 0;
+}
+
+.menu {
+  flex-grow: 1;
+}
