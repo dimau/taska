@@ -1,0 +1,57 @@
+.root {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  overflow: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  padding: 30px; /* Protect window inside from sticking to the borders of the screen */
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: 998;
+  opacity: 0.5;
+  background-color: black;
+}
+
+.window {
+  background-color: var(--background-white);
+  padding: calc(6 * var(--basic-unit));
+  z-index: 999;
+}
+
+.header {
+  display: flex;
+  padding-bottom: calc(2 * var(--basic-unit));
+  border-bottom: 1px solid var(--border-dark-gray);
+  font-size: 1rem;
+  font-family: var(--font-family-main);
+}
+
+.title {
+  font-size: var(--font-size-header-middle);
+}
+
+.cancelIcon {
+  padding-left: var(--basic-unit);
+  text-align: right;
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+.main {
+  padding-top: calc(8 * var(--basic-unit));
+}

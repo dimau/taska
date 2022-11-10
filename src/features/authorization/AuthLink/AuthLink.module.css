@@ -1,0 +1,6 @@
+.AuthModalContentContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(2 * var(--basic-unit));
+}

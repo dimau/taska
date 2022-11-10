@@ -2,7 +2,7 @@
   --text-dark-gray: #555555;
   --text-light-gray: #d5d5d5;
   --border-light-gray: #eeeeee;
-  --border-dark-gray: #dddddd;
+  --border-dark-gray: #555555;
   --background-gray: #fffefc;
   --background-white: #ffffff;
   --ui-primary: #3b8ea5;
@@ -10,11 +10,15 @@
   --border-radius-standard: 0.25rem; /* it's about 4px for standard 16px font-size */
   --font-family-logo: "Roboto", sans-serif;
   --font-family-main: "Roboto", sans-serif;
+  --font-size-header-big: 2rem;
+  --font-size-header-middle: 1.5rem;
+  --font-size-text-middle: 1rem;
 }
 
 body {
   box-sizing: border-box;
   font-family: var(--font-family-main);
+  color: var(--text-dark-gray);
 }
 
 .container {

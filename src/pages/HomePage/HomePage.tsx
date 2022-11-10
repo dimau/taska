@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./HomePage.module.css";
-import { Button } from "../../components/Button/Button";
+import { ButtonLink } from "../../components/ButtonLink/ButtonLink";
+import HomeIllustration from "./home-illustration.png";
 
 const HomePage = () => {
   return (
@@ -10,16 +11,11 @@ const HomePage = () => {
           <div className={styles.firstBlock}>
             <div className={styles.textBlock}>
               <h1>Your Google tasks can do more!</h1>
-              <Button
-                type="link"
-                href="/tasks"
-                size="big"
-                text="Just try it!"
-              />
+              <ButtonLink href="/tasks" size="big" text="Just try it!" />
             </div>
             <img
               className={styles.imgBlock}
-              src="/img/home-illustration.png"
+              src={HomeIllustration}
               alt="working people"
             />
           </div>

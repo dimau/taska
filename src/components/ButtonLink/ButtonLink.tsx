@@ -1,24 +1,25 @@
 import React from "react";
-import styles from "./Button.module.css";
+import styles from "./ButtonLink.module.css";
 import clsx from "clsx";
+import { Link } from "react-router-dom";
 
-interface ButtonProps {
+interface ButtonLinkProps {
   size: "big" | "middle" | "small";
   text: string;
-  onClick: () => void;
+  href: string;
 }
 
-export function Button({ size, text, onClick }: ButtonProps) {
+export function ButtonLink({ size, text, href }: ButtonLinkProps) {
   return (
-    <button
+    <Link
+      to={href}
       className={clsx(styles.root, {
         [styles.big]: size === "big",
         [styles.middle]: size === "middle",
         [styles.small]: size === "small",
       })}
-      onClick={onClick}
     >
       {text}
-    </button>
+    </Link>
   );
 }
