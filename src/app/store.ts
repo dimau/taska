@@ -4,7 +4,16 @@ import { taskListReducer } from "../features/taskList/tasksSlice";
 import { filterReducer } from "../features/filter/filterSlice";
 import { configureStore } from "@reduxjs/toolkit";
 // Imports for using redux-persist to persist store in Local Storage
-import { persistStore, persistReducer } from "redux-persist";
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 const rootReducer = combineReducers({
@@ -23,7 +32,13 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 const store = configureStore({
   reducer: persistedReducer,
   devTools: process.env.NODE_ENV !== "production",
-  middleware: (getDefaultMiddleware) => [...getDefaultMiddleware()],
+  middleware: (getDefaultMiddleware) => [
+    ...getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+  ],
 });
 
 const persistedStore = persistStore(store);
