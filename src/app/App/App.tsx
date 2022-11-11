@@ -5,6 +5,7 @@ import HomePage from "../../pages/HomePage/HomePage";
 import TaskListPage from "../../pages/TaskListPage/TaskListPage";
 import { MainLayout } from "../../layouts/MainLayout/MainLayout";
 import { SiteLayout } from "../../layouts/SiteLayout/SiteLayout";
+import { GoogleAuthorizer } from "../../features/authorization/GoogleAuthorizer/GoogleAuthorizer";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/tasks" element={<MainLayout />}>
           <Route index element={<TaskListPage />} />
         </Route>
+        <Route path="/access-token" element={<GoogleAuthorizer />} />
       </Routes>
     </div>
   );
