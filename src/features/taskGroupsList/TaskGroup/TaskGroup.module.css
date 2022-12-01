@@ -1,0 +1,36 @@
+.root {
+  position: relative;
+  padding: calc(2 * var(--basic-unit)) calc(4 * var(--basic-unit));
+  border-radius: calc(6 * var(--basic-unit));
+  text-align: center;
+  cursor: pointer;
+}
+
+.root::before {
+  content: " ";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  background: linear-gradient(
+    to bottom,
+    var(--ui-primary-green),
+    var(--ui-primary-green-bright)
+  );
+  border-radius: calc(6 * var(--basic-unit));
+  transition: 0.2s;
+}
+
+.root:not(.active):hover::before {
+  box-shadow: 0px 3px 20px 0px black;
+  transform: scale(1.1);
+}
+
+.active {
+  font-weight: bold;
+  color: var(--background-white);
+  cursor: default;
+  transform: scale(1.1);
+}

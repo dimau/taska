@@ -6,6 +6,8 @@
   --background-gray: #fffefc;
   --background-white: #ffffff;
   --ui-primary: #3b8ea5;
+  --ui-primary-green: #83c257;
+  --ui-primary-green-bright: #52be06;
   --basic-unit: 0.25rem; /* it's about 4px for standard 16px font-size */
   --border-radius-standard: 0.25rem; /* it's about 4px for standard 16px font-size */
   --font-family-logo: "Roboto", sans-serif;
@@ -22,6 +24,7 @@ body {
 }
 
 .container {
+  flex-grow: 1; /* helps to take the whole height on the screen */
   margin: 0 auto;
   max-width: 1280px;
   padding-left: calc(4 * var(--basic-unit));

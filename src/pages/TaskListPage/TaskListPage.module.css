@@ -1,11 +1,19 @@
 .root {
   flex-grow: 1;
+  display: flex;
 }
 
 .taskListPageContent {
-  margin: 0 auto;
-  width: 600px;
-  flex-grow: 1;
+  display: flex;
+}
+
+.sideBar {
+  width: 30%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+}
+
+.mainContent {
+  width: 70%;
 }
