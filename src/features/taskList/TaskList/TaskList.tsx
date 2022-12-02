@@ -1,10 +1,11 @@
 import React from "react";
 import styles from "./TaskList.module.css";
 import Task from "../Task/Task";
-import { selectAllFilteredTasks, taskListActions } from "../tasksSlice";
+import { taskListActions } from "../tasksSlice";
 import { selectCurrentFilter } from "../../filter/filterSlice";
 import { RootState } from "../../../app/store";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { selectAllFilteredTasks } from "../selectors";
 
 function TaskList() {
   const currentFilter = useAppSelector(selectCurrentFilter);

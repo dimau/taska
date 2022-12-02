@@ -3,8 +3,12 @@
 /*********************************************/
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../../app/store";
 import { ITask } from "../../interfaces";
+import {
+  getTasksWithoutDeletedTask,
+  getTasksWithToggledTaskIsDone,
+  uuidv4,
+} from "./utils";
 
 export interface TaskListStateEntities {
   [id: string]: ITask;
@@ -66,83 +70,4 @@ export const tasksSlice = createSlice({
 export const taskListReducer = tasksSlice.reducer;
 export const taskListActions = {
   ...tasksSlice.actions,
-};
-
-/*********************************************/
-/* Selector functions for slice state        */
-/*********************************************/
-
-export function selectTasksSlice(state: RootState) {
-  return state.tasks;
-}
-
-export function selectAllTasks(state: RootState) {
-  return Object.values(selectTasksSlice(state).entities);
-}
-
-export function selectAllFilteredTasks(state: RootState, filter: string) {
-  const allTasks = selectAllTasks(state);
-  return allTasks.filter((task) => checkSelection(filter, task.isDone));
-}
-
-/*********************************************/
-/* Utilities                                 */
-/*********************************************/
-
-const getTasksWithoutDeletedTask = function (
-  state: TaskListState,
-  taskId: string
-) {
-  // Search for task object with taskId
-  if (!(taskId in state.entities)) return state;
-  delete state.entities[taskId];
-  let index = state.ids.findIndex((item) => item === taskId);
-
-  // Delete the task from tasks
-  state.ids.splice(index, 1);
-  return state;
-};
-
-/**
- *
- * @param {array} state
- * @param {string} taskId
- * @param {bool} isDoneNewValue
- * @returns {array}
- */
-const getTasksWithToggledTaskIsDone = function (
-  state: TaskListState,
-  taskId: string,
-  isDoneNewValue: boolean
-) {
-  // Search for task object with taskId
-  if (!(taskId in state.entities)) return state;
-
-  // Changing isDone status for the task in tasks
-  state.entities[taskId].isDone = isDoneNewValue;
-  return state;
-};
-
-/**
- *
- * @param {string} selectedFilter
- * @param {boolean} taskStatus
- * @returns true, if task status is matched with filter and false, if task status is not matched
- */
-const checkSelection = function (selectedFilter: string, taskStatus: boolean) {
-  return (
-    selectedFilter === "filter-all" ||
-    (selectedFilter === "filter-active" && !taskStatus) ||
-    (selectedFilter === "filter-completed" && taskStatus)
-  );
-};
-
-const uuidv4 = function (): string {
-  // @ts-ignore
-  return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
-    (
-      c ^
-      (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
-    ).toString(16)
-  );
 };

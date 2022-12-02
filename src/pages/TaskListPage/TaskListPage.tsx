@@ -9,17 +9,7 @@ const TaskListPage = () => {
       <div className="container">
         <div className={styles.taskListPageContent}>
           <div className={styles.sideBar}>
-            <TaskGroupsList
-              groups={[
-                "First List",
-                "Second List",
-                "Personal",
-                "Invites",
-                "My Friends",
-                "Work",
-                "later",
-              ]}
-            />
+            <TaskGroupsList />
           </div>
           <div className={styles.mainContent}>
             <TaskListPanel />

@@ -17,12 +17,14 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { taskGroupsListReducer } from "../features/taskGroupsList/taskGroupListSlice";
 
 const rootReducer = combineReducers({
   tasks: taskListReducer,
   newTask: newTaskReducer,
   selectedFilter: filterReducer,
   auth: authReducer,
+  taskGroups: taskGroupsListReducer,
 });
 
 const persistConfig = {
