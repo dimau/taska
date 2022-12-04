@@ -18,6 +18,7 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { taskGroupsListReducer } from "../features/taskGroupsList/taskGroupListSlice";
+import { googleTasksApi } from "../services/googleTasks";
 
 const rootReducer = combineReducers({
   tasks: taskListReducer,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   selectedFilter: filterReducer,
   auth: authReducer,
   taskGroups: taskGroupsListReducer,
+  [googleTasksApi.reducerPath]: googleTasksApi.reducer,
 });
 
 const persistConfig = {
@@ -43,6 +45,9 @@ const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
+    // Adding the api middleware enables caching, invalidation, polling,
+    // and other useful features of `rtk-query`
+    googleTasksApi.middleware,
   ],
 });
 
