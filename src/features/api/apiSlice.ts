@@ -1,6 +1,6 @@
-// Need to use the React-specific entry point to import createApi
+// Import the RTK Query methods from the React-specific entry point
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { RootState } from "../app/store";
+import { RootState } from "../../app/store";
 
 export interface IGoogleTaskListDescription {
   kind: string;
@@ -17,10 +17,12 @@ export interface IResponse {
   items: IGoogleTaskListDescription[];
 }
 
-// Define a service using a base URL and expected endpoints
-export const googleTasksApi = createApi({
-  reducerPath: "googleTasksApi",
+// Define our single API slice object
+export const apiSlice = createApi({
+  // The cache reducer expects to be added at `state.api` (already default - this is optional)
+  reducerPath: "api",
   baseQuery: fetchBaseQuery({
+    // All of our requests will have URLs starting with baseUrl
     baseUrl: "https://tasks.googleapis.com/tasks/v1/users/@me/",
     prepareHeaders: (headers, { getState }) => {
       const authToken = (getState() as RootState).auth.accessToken;
@@ -28,13 +30,15 @@ export const googleTasksApi = createApi({
       return headers;
     },
   }),
+  // The "endpoints" represent operations and requests for this server
   endpoints: (builder) => ({
-    getAllTaskLists: builder.query<IResponse, string>({
-      query: () => ({ url: `lists` }),
+    getTasksLists: builder.query<IResponse, any>({
+      // The URL for the request is 'https://tasks.googleapis.com/tasks/v1/users/@me/lists'
+      query: () => ({ url: `lists`, method: "GET" }),
     }),
   }),
 });
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetAllTaskListsQuery } = googleTasksApi;
+export const { useGetTasksListsQuery } = apiSlice;

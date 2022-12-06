@@ -4,6 +4,7 @@ import { taskListReducer } from "../features/taskList/tasksSlice";
 import { filterReducer } from "../features/filter/filterSlice";
 import { authReducer } from "../features/authorization/authSlice";
 import { configureStore } from "@reduxjs/toolkit";
+import { apiSlice } from "../features/api/apiSlice";
 
 // Imports for using redux-persist to persist store in Local Storage
 import {
@@ -17,16 +18,13 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { taskGroupsListReducer } from "../features/taskGroupsList/taskGroupListSlice";
-import { googleTasksApi } from "../services/googleTasks";
 
 const rootReducer = combineReducers({
   tasks: taskListReducer,
   newTask: newTaskReducer,
   selectedFilter: filterReducer,
   auth: authReducer,
-  taskGroups: taskGroupsListReducer,
-  [googleTasksApi.reducerPath]: googleTasksApi.reducer,
+  [apiSlice.reducerPath]: apiSlice.reducer,
 });
 
 const persistConfig = {
@@ -38,7 +36,8 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
   reducer: persistedReducer,
-  devTools: process.env.NODE_ENV !== "production",
+  // devTools: process.env.NODE_ENV !== "production", // TODO: change when I'll be ready for production
+  devTools: true,
   middleware: (getDefaultMiddleware) => [
     ...getDefaultMiddleware({
       serializableCheck: {
@@ -47,7 +46,7 @@ const store = configureStore({
     }),
     // Adding the api middleware enables caching, invalidation, polling,
     // and other useful features of `rtk-query`
-    googleTasksApi.middleware,
+    apiSlice.middleware,
   ],
 });
 
