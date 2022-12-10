@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "./TaskActionPanel.module.css";
 import hoverStyles from "../Task/TaskHover.module.css";
-import { ITask } from "../../../interfaces";
+import { IGoogleTaskDescription } from "../../api/interfaces";
 
 interface TaskActionPanelProps {
-  taskInfo: ITask;
+  taskInfo: IGoogleTaskDescription;
 }
 
 function TaskActionPanel({ taskInfo }: TaskActionPanelProps) {
@@ -12,13 +12,13 @@ function TaskActionPanel({ taskInfo }: TaskActionPanelProps) {
     <div className={`${hoverStyles.taskHoverChild} ${styles.taskActionPanel}`}>
       <span
         className={`material-symbols-outlined button-edit ${styles.icon}`}
-        data-taskid={taskInfo.taskId}
+        data-taskid={taskInfo.id}
       >
         edit
       </span>
       <span
         className={`material-symbols-outlined button-delete ${styles.icon}`}
-        data-taskid={taskInfo.taskId}
+        data-taskid={taskInfo.id}
       >
         delete
       </span>
