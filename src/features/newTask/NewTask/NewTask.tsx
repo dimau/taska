@@ -1,16 +1,33 @@
 import React from "react";
 import { newTaskActions, selectNewTask } from "../newTaskSlice";
 import styles from "./NewTask.module.css";
-import { taskListActions } from "../../taskList/tasksSlice";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { selectActiveTaskGroupId } from "../../taskGroupsList/taskGroupListSlice";
+import { useCreateTaskMutation } from "../../api/apiSlice";
 
 function NewTask() {
+  const activeTaskGroupId = useAppSelector(selectActiveTaskGroupId);
   const newTaskTitle = useAppSelector(selectNewTask);
+  const [addNewTask, { isLoading }] = useCreateTaskMutation();
   const dispatch = useAppDispatch();
 
   const handleSubmit = function (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    dispatch(taskListActions.addNewTask({ title: newTaskTitle }));
+    asyncSubmitHandling();
+  };
+
+  const asyncSubmitHandling = async () => {
+    if (!isLoading) {
+      try {
+        await addNewTask({
+          taskList: activeTaskGroupId,
+          title: newTaskTitle,
+        }).unwrap();
+        dispatch(newTaskActions.changeNewTaskValue(""));
+      } catch (err) {
+        console.error("Failed to save the post: ", err);
+      }
+    }
   };
 
   const handleChange = function (e: React.ChangeEvent<HTMLInputElement>) {

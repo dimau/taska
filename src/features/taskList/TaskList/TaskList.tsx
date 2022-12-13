@@ -3,16 +3,23 @@ import styles from "./TaskList.module.css";
 import Task from "../Task/Task";
 import { taskListActions } from "../tasksSlice";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { useGetTasksByTaskListIdQuery } from "../../api/apiSlice";
+import {
+  useDeleteTaskMutation,
+  useGetTasksByTaskListIdQuery,
+} from "../../api/apiSlice";
 import { selectActiveTaskGroupId } from "../../taskGroupsList/taskGroupListSlice";
 
 function TaskList() {
   // Load Google tasks for specific active Task List from Google REST API
-  let activeTaskGroupId = useAppSelector(selectActiveTaskGroupId);
+  const activeTaskGroupId = useAppSelector(selectActiveTaskGroupId);
   const { data, isLoading, isSuccess, isError, error } =
     useGetTasksByTaskListIdQuery({
       taskListId: `${activeTaskGroupId}`,
     });
+
+  // Deleting tasks
+  const [deleteTask, { isLoading: isLoadingDeletion }] =
+    useDeleteTaskMutation();
 
   // const currentFilter = useAppSelector(selectCurrentFilter);
   // const allFilteredTasks = useAppSelector((state: RootState) =>
@@ -32,7 +39,20 @@ function TaskList() {
       e.target.dataset &&
       e.target.dataset.taskid
     ) {
-      dispatch(taskListActions.deleteTask({ taskId: e.target.dataset.taskid }));
+      asyncDeleteHandling(e.target.dataset.taskid);
+    }
+  };
+
+  const asyncDeleteHandling = async (taskId: string) => {
+    if (!isLoadingDeletion) {
+      try {
+        await deleteTask({
+          taskList: activeTaskGroupId,
+          taskId: taskId,
+        });
+      } catch (err) {
+        console.error("Failed to delete the task", err);
+      }
     }
   };
 
