@@ -26,7 +26,7 @@ export const apiSlice = createApi({
       { taskListId: string }
     >({
       query: ({ taskListId }) => ({
-        url: `/lists/${taskListId}/tasks`,
+        url: `/lists/${taskListId}/tasks?showCompleted=true&showHidden=true&maxResults=100`,
         method: "GET",
       }),
       providesTags: ["Task"],
@@ -65,6 +65,22 @@ export const apiSlice = createApi({
         method: "DELETE",
       }),
       invalidatesTags: ["Task"],
+      async onQueryStarted({ taskList, taskId }, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          apiSlice.util.updateQueryData(
+            "getTasksByTaskListId",
+            { taskListId: taskList },
+            (draft) => {
+              draft.items = draft.items.filter((task) => task.id != taskId);
+            }
+          )
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
     }),
 
     // Change status of the task
@@ -79,6 +95,29 @@ export const apiSlice = createApi({
         },
       }),
       invalidatesTags: ["Task"],
+      async onQueryStarted(
+        { newStatus, taskListId, taskId },
+        { dispatch, queryFulfilled }
+      ) {
+        const patchResult = dispatch(
+          apiSlice.util.updateQueryData(
+            "getTasksByTaskListId",
+            { taskListId },
+            (draft) => {
+              const task = draft.items.find((task) => task.id === taskId);
+              if (task) {
+                task.status =
+                  task.status === "completed" ? "needsAction" : "completed";
+              }
+            }
+          )
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
     }),
   }),
 });
