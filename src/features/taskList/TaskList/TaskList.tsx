@@ -16,6 +16,11 @@ function TaskList() {
       taskListId: `${activeTaskGroupId}`,
     });
 
+  // // Sort tasks by due date and prepare for Date Groups
+  // if (isLoading) {
+  //   data.sort()
+  // }
+
   // Deleting tasks
   const [deleteTask, { isLoading: isLoadingDeletion }] =
     useDeleteTaskMutation();
@@ -73,7 +78,7 @@ function TaskList() {
         <>Loading...</>
       ) : isSuccess ? (
         <>
-          {data.items.map((task) => (
+          {data.map((task) => (
             <Task taskInfo={task} key={task.id} />
           ))}
         </>

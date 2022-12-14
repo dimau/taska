@@ -17,11 +17,11 @@ function NewTask() {
   };
 
   const asyncSubmitHandling = async () => {
-    if (!isLoading) {
+    if (newTaskTitle.trim() && !isLoading) {
       try {
         await addNewTask({
           taskList: activeTaskGroupId,
-          title: newTaskTitle,
+          title: newTaskTitle.trim(),
         }).unwrap();
         dispatch(newTaskActions.changeNewTaskValue(""));
       } catch (err) {

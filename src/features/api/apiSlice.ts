@@ -1,6 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../../app/store";
-import { IGoogleTaskListResponse, IGoogleTaskResponse } from "./interfaces";
+import {
+  IGoogleTaskDescription,
+  IGoogleTaskListResponse,
+  IGoogleTaskResponse,
+} from "./interfaces";
 
 export const apiSlice = createApi({
   reducerPath: "api",
@@ -22,7 +26,7 @@ export const apiSlice = createApi({
 
     // Getting all tasks from specific task list from Google Tasks
     getTasksByTaskListId: builder.query<
-      IGoogleTaskResponse,
+      IGoogleTaskDescription[],
       { taskListId: string }
     >({
       query: ({ taskListId }) => ({
@@ -30,6 +34,8 @@ export const apiSlice = createApi({
         method: "GET",
       }),
       providesTags: ["Task"],
+      transformResponse: (response: IGoogleTaskResponse) =>
+        response.items.sort((a, b) => (a.due > b.due ? 1 : -1)), // Sort array of Google tasks based on due date
     }),
 
     // Creating a new task
@@ -70,9 +76,7 @@ export const apiSlice = createApi({
           apiSlice.util.updateQueryData(
             "getTasksByTaskListId",
             { taskListId: taskList },
-            (draft) => {
-              draft.items = draft.items.filter((task) => task.id != taskId);
-            }
+            (draft) => draft.filter((task) => task.id != taskId)
           )
         );
         try {
@@ -104,7 +108,7 @@ export const apiSlice = createApi({
             "getTasksByTaskListId",
             { taskListId },
             (draft) => {
-              const task = draft.items.find((task) => task.id === taskId);
+              const task = draft.find((task) => task.id === taskId);
               if (task) {
                 task.status =
                   task.status === "completed" ? "needsAction" : "completed";
