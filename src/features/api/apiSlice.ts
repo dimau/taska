@@ -72,7 +72,11 @@ export const apiSlice = createApi({
       query: ({ newStatus, taskListId, taskId }) => ({
         url: `/lists/${taskListId}/tasks/${taskId}`,
         method: "PATCH",
-        body: { status: newStatus },
+        body: {
+          kind: "tasks#task",
+          id: taskId,
+          status: newStatus,
+        },
       }),
       invalidatesTags: ["Task"],
     }),

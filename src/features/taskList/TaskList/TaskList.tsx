@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
   useDeleteTaskMutation,
   useGetTasksByTaskListIdQuery,
+  useToggleTaskStatusMutation,
 } from "../../api/apiSlice";
 import { selectActiveTaskGroupId } from "../../taskGroupsList/taskGroupListSlice";
 
@@ -20,6 +21,10 @@ function TaskList() {
   // Deleting tasks
   const [deleteTask, { isLoading: isLoadingDeletion }] =
     useDeleteTaskMutation();
+
+  // Toggling tasks (completed / not completed)
+  const [toggleTask, { isLoading: isLoadingToggling }] =
+    useToggleTaskStatusMutation();
 
   // const currentFilter = useAppSelector(selectCurrentFilter);
   // const allFilteredTasks = useAppSelector((state: RootState) =>
@@ -57,12 +62,39 @@ function TaskList() {
   };
 
   const handleChange = function (e: React.ChangeEvent<HTMLInputElement>) {
+    asyncTogglingHandling({
+      taskId: e.target.dataset.taskid as string,
+      taskListId: activeTaskGroupId,
+      newStatus: e.target.checked ? "completed" : "needsAction",
+    });
     dispatch(
       taskListActions.toggleTaskIsDone({
         taskId: e.target.dataset.taskid as string,
         isDoneNewValue: e.target.checked,
       })
     );
+  };
+
+  const asyncTogglingHandling = ({
+    taskId,
+    taskListId,
+    newStatus,
+  }: {
+    taskId: string;
+    taskListId: string;
+    newStatus: string;
+  }) => {
+    if (!isLoadingToggling) {
+      try {
+        toggleTask({
+          newStatus,
+          taskListId,
+          taskId,
+        });
+      } catch (err) {
+        console.error("Failed to toggle the task status", err);
+      }
+    }
   };
 
   // // If we don't have any task to show to the user
