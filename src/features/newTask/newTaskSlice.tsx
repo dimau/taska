@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { taskListActions } from "../taskList/tasksSlice";
 import { RootState } from "../../app/store";
 
 const initialState = "";
@@ -10,9 +9,6 @@ const newTaskSlice = createSlice({
   reducers: {
     changeNewTaskValue: (state, action: PayloadAction<string>) =>
       action.payload,
-  },
-  extraReducers: (builder) => {
-    builder.addCase(taskListActions.addNewTask.type, () => "");
   },
 });
 

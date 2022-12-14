@@ -1,6 +1,5 @@
 import { combineReducers } from "redux";
 import { newTaskReducer } from "../features/newTask/newTaskSlice";
-import { taskListReducer } from "../features/taskList/tasksSlice";
 import { filterReducer } from "../features/filter/filterSlice";
 import { authReducer } from "../features/authorization/authSlice";
 import { configureStore } from "@reduxjs/toolkit";
@@ -21,7 +20,6 @@ import storage from "redux-persist/lib/storage";
 import { taskGroupListReducer } from "../features/taskGroupsList/taskGroupListSlice";
 
 const rootReducer = combineReducers({
-  tasks: taskListReducer,
   newTask: newTaskReducer,
   selectedFilter: filterReducer,
   selectedTaskGroup: taskGroupListReducer,
