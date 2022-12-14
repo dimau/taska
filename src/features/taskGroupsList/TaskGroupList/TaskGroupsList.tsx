@@ -19,9 +19,15 @@ export function TaskGroupsList() {
 
   const handleClick = function (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    groupId: string
+    groupId: string,
+    groupTitle: string
   ) {
-    dispatch(taskGroupListActions.changeActiveGroup(groupId));
+    dispatch(
+      taskGroupListActions.changeActiveGroup({
+        activeTaskGroupListId: groupId,
+        activeTaskGroupListTitle: groupTitle,
+      })
+    );
   };
 
   // Show all groups in panel in UI
@@ -42,7 +48,7 @@ export function TaskGroupsList() {
               key={group.id}
               active={group.id === activeTaskGroupId}
               onClick={(event) => {
-                handleClick(event, group.id);
+                handleClick(event, group.id, group.title);
               }}
             />
           ))}
