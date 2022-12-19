@@ -13,7 +13,7 @@ import {
 } from "../../filter/filterSlice";
 
 function TaskList() {
-  // Load Google tasks for specific active Task List from Google REST API
+  // Load Google tasks for specific active Task List from Google REST API (or from RTKQ cache)
   const activeTaskGroupId = useAppSelector(selectActiveTaskGroupId);
   const currentFilter = useAppSelector(selectCurrentFilter);
   const selectFilteredTasks = useCallback(createSelectFilteredTasks(), []);
@@ -64,14 +64,7 @@ function TaskList() {
     }
   };
 
-  // // If we don't have any task to show to the user
-  // if (allFilteredTasks.length === 0) {
-  //   return (
-  //     <div className={styles.allDoneBlock}>It's all done, time to relax!</div>
-  //   );
-  // }
-
-  // Show all groups in panel in UI
+  // Show all tasks in UI
   return (
     <div className={styles.taskList} onClick={handleClick}>
       {isError ? (
@@ -81,6 +74,8 @@ function TaskList() {
         </>
       ) : isLoading ? (
         <>Loading...</>
+      ) : isSuccess && filteredTasks.length === 0 ? ( // If we don't have any task to show to the user
+        <div className={styles.allDoneBlock}>It's all done, time to relax!</div>
       ) : isSuccess ? (
         <>
           {filteredTasks.map((task) => (
