@@ -1,6 +1,5 @@
 import React, { useCallback } from "react";
 import styles from "./TaskList.module.css";
-import Task from "../Task/Task";
 import { useAppSelector } from "../../../app/hooks";
 import {
   useDeleteTaskMutation,
@@ -8,15 +7,19 @@ import {
 } from "../../api/apiSlice";
 import { selectActiveTaskGroupId } from "../../taskGroupsList/taskGroupListSlice";
 import {
-  createSelectFilteredTasks,
+  createSelectFilteredTasksGroupedByDate,
   selectCurrentFilter,
 } from "../../filter/filterSlice";
+import { DateGroup } from "../DateGroup/DateGroup";
 
 function TaskList() {
   // Load Google tasks for specific active Task List from Google REST API (or from RTKQ cache)
   const activeTaskGroupId = useAppSelector(selectActiveTaskGroupId);
   const currentFilter = useAppSelector(selectCurrentFilter);
-  const selectFilteredTasks = useCallback(createSelectFilteredTasks(), []);
+  const selectFilteredTasks = useCallback(
+    createSelectFilteredTasksGroupedByDate(),
+    []
+  );
   const { filteredTasks, isLoading, isSuccess, isError, error } =
     useGetTasksByTaskListIdQuery(
       {
@@ -78,8 +81,12 @@ function TaskList() {
         <div className={styles.allDoneBlock}>It's all done, time to relax!</div>
       ) : isSuccess ? (
         <>
-          {filteredTasks.map((task) => (
-            <Task taskInfo={task} key={task.id} />
+          {filteredTasks.map((dateGroup) => (
+            <DateGroup
+              date={dateGroup.date}
+              tasks={dateGroup.tasks}
+              key={dateGroup.date}
+            />
           ))}
         </>
       ) : null}

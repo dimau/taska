@@ -1,0 +1,4 @@
+.date {
+  padding: calc(var(--basic-unit) * 4) 0;
+  font-weight: bold;
+}
