@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Task.module.css";
 import hoverStyles from "./TaskHover.module.css";
-import TaskActionPanel from "../TaskActionPanel/TaskActionPanel";
+import { TaskActionPanel } from "../TaskActionPanel/TaskActionPanel";
 import { useAppSelector } from "../../../app/hooks";
 import { selectActiveTaskGroupId } from "../../taskGroupsList/taskGroupListSlice";
 import { useToggleTaskStatusMutation } from "../../api/apiSlice";
@@ -11,7 +11,7 @@ interface TaskProps {
   taskInfo: IGoogleTaskDescription;
 }
 
-function Task({ taskInfo }: TaskProps) {
+export function Task({ taskInfo }: TaskProps) {
   const activeTaskGroupId = useAppSelector(selectActiveTaskGroupId);
 
   // Toggling tasks (completed / not completed)
@@ -68,5 +68,3 @@ function Task({ taskInfo }: TaskProps) {
     </div>
   );
 }
-
-export default Task;

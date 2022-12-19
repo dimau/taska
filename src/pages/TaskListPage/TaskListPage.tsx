@@ -3,7 +3,7 @@ import styles from "./TaskListPage.module.css";
 import { TaskGroupsList } from "../../features/taskGroupsList/TaskGroupList/TaskGroupsList";
 import { TaskListPanel } from "../../features/taskList/TaskListPanel/TaskListPanel";
 
-const TaskListPage = () => {
+export const TaskListPage = () => {
   return (
     <main className={styles.root}>
       <div className="container">
@@ -19,5 +19,3 @@ const TaskListPage = () => {
     </main>
   );
 };
-
-export default TaskListPage;

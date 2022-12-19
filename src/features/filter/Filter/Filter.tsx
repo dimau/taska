@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "./Filter.module.css";
-import FilterButton from "../FilterButton/FilterButton";
+import { FilterButton } from "../FilterButton/FilterButton";
 import { filterSliceActions, selectCurrentFilter } from "../filterSlice";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 
-function Filter() {
+export function Filter() {
   const selectedFilter = useAppSelector(selectCurrentFilter);
   const dispatch = useAppDispatch();
 
@@ -32,5 +32,3 @@ function Filter() {
     </div>
   );
 }
-
-export default Filter;

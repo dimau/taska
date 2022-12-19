@@ -2,7 +2,7 @@ import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 import { IGoogleTaskDescription } from "../../interfaces";
 
-let initialState = "filter-all";
+let initialState = "filter-active";
 
 const filterSlice = createSlice({
   name: "filter",

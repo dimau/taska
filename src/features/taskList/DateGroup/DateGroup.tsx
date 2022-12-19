@@ -1,5 +1,5 @@
 import React from "react";
-import Task from "../Task/Task";
+import { Task } from "../Task/Task";
 import { IGoogleTaskDescription } from "../../../interfaces";
 import { datePrettier } from "../utils";
 import styles from "./DateGroup.module.css";

@@ -7,7 +7,7 @@ interface TaskActionPanelProps {
   taskInfo: IGoogleTaskDescription;
 }
 
-function TaskActionPanel({ taskInfo }: TaskActionPanelProps) {
+export function TaskActionPanel({ taskInfo }: TaskActionPanelProps) {
   return (
     <div className={`${hoverStyles.taskHoverChild} ${styles.taskActionPanel}`}>
       <span
@@ -25,5 +25,3 @@ function TaskActionPanel({ taskInfo }: TaskActionPanelProps) {
     </div>
   );
 }
-
-export default TaskActionPanel;

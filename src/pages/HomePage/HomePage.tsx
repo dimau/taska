@@ -3,7 +3,7 @@ import styles from "./HomePage.module.css";
 import { ButtonLink } from "../../components/ButtonLink/ButtonLink";
 import HomeIllustration from "./home-illustration.png";
 
-const HomePage = () => {
+export const HomePage = () => {
   return (
     <main className={styles.root}>
       <div className="container">
@@ -24,5 +24,3 @@ const HomePage = () => {
     </main>
   );
 };
-
-export default HomePage;

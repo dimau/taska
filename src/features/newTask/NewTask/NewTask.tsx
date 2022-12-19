@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { selectActiveTaskGroupId } from "../../taskGroupsList/taskGroupListSlice";
 import { useCreateTaskMutation } from "../../api/apiSlice";
 
-function NewTask() {
+export function NewTask() {
   const activeTaskGroupId = useAppSelector(selectActiveTaskGroupId);
   const newTaskTitle = useAppSelector(selectNewTask);
   const [addNewTask, { isLoading }] = useCreateTaskMutation();
@@ -47,5 +47,3 @@ function NewTask() {
     </form>
   );
 }
-
-export default NewTask;

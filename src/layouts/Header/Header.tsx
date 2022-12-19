@@ -3,7 +3,7 @@ import styles from "./Header.module.css";
 import { Link } from "react-router-dom";
 import { Logo } from "../Logo/Logo";
 
-function Header() {
+export function Header() {
   return (
     <header className={styles.root}>
       <div className="container">
@@ -16,5 +16,3 @@ function Header() {
     </header>
   );
 }
-
-export default Header;

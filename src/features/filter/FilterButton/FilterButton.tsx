@@ -7,7 +7,11 @@ interface FilterButtonProps {
   selectedFilter: string;
 }
 
-function FilterButton({ value, label, selectedFilter }: FilterButtonProps) {
+export function FilterButton({
+  value,
+  label,
+  selectedFilter,
+}: FilterButtonProps) {
   return (
     <label className={styles.filterButton} htmlFor={value}>
       <input
@@ -23,5 +27,3 @@ function FilterButton({ value, label, selectedFilter }: FilterButtonProps) {
     </label>
   );
 }
-
-export default FilterButton;

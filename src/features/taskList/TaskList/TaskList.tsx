@@ -12,7 +12,7 @@ import {
 } from "../../filter/filterSlice";
 import { DateGroup } from "../DateGroup/DateGroup";
 
-function TaskList() {
+export function TaskList() {
   // Load Google tasks for specific active Task List from Google REST API (or from RTKQ cache)
   const activeTaskGroupId = useAppSelector(selectActiveTaskGroupId);
   const currentFilter = useAppSelector(selectCurrentFilter);
@@ -93,5 +93,3 @@ function TaskList() {
     </div>
   );
 }
-
-export default TaskList;

@@ -1,13 +1,13 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import styles from "./App.module.css";
-import HomePage from "../../pages/HomePage/HomePage";
-import TaskListPage from "../../pages/TaskListPage/TaskListPage";
+import { HomePage } from "../../pages/HomePage/HomePage";
+import { TaskListPage } from "../../pages/TaskListPage/TaskListPage";
 import { MainLayout } from "../../layouts/MainLayout/MainLayout";
 import { SiteLayout } from "../../layouts/SiteLayout/SiteLayout";
 import { GoogleAuthorizer } from "../../features/authorization/GoogleAuthorizer/GoogleAuthorizer";
 
-function App() {
+export function App() {
   return (
     <div className={styles.root}>
       <Routes>
@@ -22,5 +22,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
