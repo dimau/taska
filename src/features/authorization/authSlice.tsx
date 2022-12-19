@@ -2,12 +2,10 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 
 export interface IAuthState {
-  googleUserName: string;
   accessToken: string;
 }
 
 let initialState: IAuthState = {
-  googleUserName: "",
   accessToken: "",
 };
 
@@ -28,4 +26,8 @@ export const authActions = { ...authSlice.actions };
 
 export function selectAuth(state: RootState) {
   return state.auth;
+}
+
+export function selectAuthAccessToken(state: RootState) {
+  return selectAuth(state).accessToken;
 }

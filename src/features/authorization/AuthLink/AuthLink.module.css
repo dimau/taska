@@ -1,6 +1,10 @@
-.AuthModalContentContainer {
+.root {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: calc(2 * var(--basic-unit));
+}
+
+.picture {
+  height: 32px;
+  margin-right: 16px;
+  border-radius: 100%;
 }

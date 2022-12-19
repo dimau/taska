@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Header.module.css";
-import { Link } from "react-router-dom";
 import { Logo } from "../Logo/Logo";
+import { AuthLink } from "../../features/authorization/AuthLink/AuthLink";
 
 export function Header() {
   return (
@@ -10,7 +10,7 @@ export function Header() {
         <div className={styles.headerContent}>
           <Logo />
           <div className={styles.menu}></div>
-          <Link to="/tasks">Log In</Link>
+          <AuthLink />
         </div>
       </div>
     </header>

@@ -1,11 +1,11 @@
 import React from "react";
 import styles from "./TasksListHeader.module.css";
-import { useGetTasksByTaskListIdQuery } from "../../features/api/apiSlice";
+import { useGetTasksByTaskListIdQuery } from "../../api/apiSlice";
 import {
   selectActiveTaskGroupId,
   selectActiveTaskGroupTitle,
-} from "../../features/taskGroupsList/taskGroupListSlice";
-import { useAppSelector } from "../../app/hooks";
+} from "../../taskGroupsList/taskGroupListSlice";
+import { useAppSelector } from "../../../app/hooks";
 
 export function TasksListHeader() {
   // Upload button used refetch for updating current active task list

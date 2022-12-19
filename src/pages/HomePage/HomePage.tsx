@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./HomePage.module.css";
 import { ButtonLink } from "../../components/ButtonLink/ButtonLink";
 import HomeIllustration from "./home-illustration.png";
+import { ACCESS_TOKEN_URI } from "../../features/authorization/accessToken";
 
 export const HomePage = () => {
   return (
@@ -11,7 +12,12 @@ export const HomePage = () => {
           <div className={styles.firstBlock}>
             <div className={styles.textBlock}>
               <h1>Your Google tasks can do more!</h1>
-              <ButtonLink href="/tasks" size="big" text="Just try it!" />
+              <ButtonLink
+                href={ACCESS_TOKEN_URI}
+                size="big"
+                text="Just try it!"
+                type="external"
+              />
             </div>
             <img
               className={styles.imgBlock}

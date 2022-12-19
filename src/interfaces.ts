@@ -43,3 +43,21 @@ export interface IEndpointSubSlice {
   data: IGoogleTaskDescription[];
   fulfilledTimeStamp: number;
 }
+
+export interface IAccessTokenInfoResponse {
+  issued_to: string; // "1059530583430-2n6cde8v4humjd4rltaq0pgfl72kqdf6.apps.googleusercontent.com",
+  audience: string; // "1055530633437-2n4cde8v4humjd2rlttq0pgfl72kqdf6.apps.googleusercontent.com",
+  user_id: string; // "108521228071206658397",
+  scope: string; // "https://www.googleapis.com/auth/tasks https://www.googleapis.com/auth/userinfo.profile",
+  expires_in: number; //3522,
+  access_type: string; // "online"
+}
+
+export interface IUserNameResponse {
+  id: string; // "105521878021276158997",
+  name: string; // "Дмитрий Ушаков",
+  given_name: string; // "Дмитрий",
+  family_name: string; //"Ушаков",
+  picture: string; // "https://lh3.googleusercontent.com/a/AEdFTp4Hxj29kODkd5ran6mEVkJxijfAONpISGqkr6taLhk=s96-c",
+  locale: string; // "ru";
+}

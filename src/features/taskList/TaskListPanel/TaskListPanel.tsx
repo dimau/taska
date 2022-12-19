@@ -1,5 +1,5 @@
 import React from "react";
-import { TasksListHeader } from "../../../components/TasksListHeader/TasksListHeader";
+import { TasksListHeader } from "../TasksListHeader/TasksListHeader";
 import { NewTask } from "../../newTask/NewTask/NewTask";
 import { TaskList } from "../TaskList/TaskList";
 import { Filter } from "../../filter/Filter/Filter";
