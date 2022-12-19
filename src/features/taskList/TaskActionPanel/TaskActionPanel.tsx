@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./TaskActionPanel.module.css";
 import hoverStyles from "../Task/TaskHover.module.css";
-import { IGoogleTaskDescription } from "../../api/interfaces";
+import { IGoogleTaskDescription } from "../../../interfaces";
 
 interface TaskActionPanelProps {
   taskInfo: IGoogleTaskDescription;

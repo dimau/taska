@@ -2,10 +2,10 @@ import React from "react";
 import styles from "./Task.module.css";
 import hoverStyles from "./TaskHover.module.css";
 import TaskActionPanel from "../TaskActionPanel/TaskActionPanel";
-import { IGoogleTaskDescription } from "../../api/interfaces";
 import { useAppSelector } from "../../../app/hooks";
 import { selectActiveTaskGroupId } from "../../taskGroupsList/taskGroupListSlice";
 import { useToggleTaskStatusMutation } from "../../api/apiSlice";
+import { IGoogleTaskDescription } from "../../../interfaces";
 
 interface TaskProps {
   taskInfo: IGoogleTaskDescription;

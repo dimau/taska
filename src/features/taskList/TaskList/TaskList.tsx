@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import styles from "./TaskList.module.css";
 import Task from "../Task/Task";
 import { useAppSelector } from "../../../app/hooks";
@@ -7,28 +7,33 @@ import {
   useGetTasksByTaskListIdQuery,
 } from "../../api/apiSlice";
 import { selectActiveTaskGroupId } from "../../taskGroupsList/taskGroupListSlice";
+import {
+  createSelectFilteredTasks,
+  selectCurrentFilter,
+} from "../../filter/filterSlice";
 
 function TaskList() {
   // Load Google tasks for specific active Task List from Google REST API
   const activeTaskGroupId = useAppSelector(selectActiveTaskGroupId);
-  const { data, isLoading, isSuccess, isError, error } =
-    useGetTasksByTaskListIdQuery({
-      taskListId: `${activeTaskGroupId}`,
-    });
-
-  // // Sort tasks by due date and prepare for Date Groups
-  // if (isLoading) {
-  //   data.sort()
-  // }
+  const currentFilter = useAppSelector(selectCurrentFilter);
+  const selectFilteredTasks = useCallback(createSelectFilteredTasks(), []);
+  const { filteredTasks, isLoading, isSuccess, isError, error } =
+    useGetTasksByTaskListIdQuery(
+      {
+        taskListId: `${activeTaskGroupId}`,
+      },
+      {
+        selectFromResult: (result) => ({
+          ...result,
+          // @ts-ignore
+          filteredTasks: selectFilteredTasks(result, currentFilter),
+        }),
+      }
+    );
 
   // Deleting tasks
   const [deleteTask, { isLoading: isLoadingDeletion }] =
     useDeleteTaskMutation();
-
-  // const currentFilter = useAppSelector(selectCurrentFilter);
-  // const allFilteredTasks = useAppSelector((state: RootState) =>
-  //   selectAllFilteredTasks(state, currentFilter)
-  // );
 
   const handleClick = function (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -78,7 +83,7 @@ function TaskList() {
         <>Loading...</>
       ) : isSuccess ? (
         <>
-          {data.map((task) => (
+          {filteredTasks.map((task) => (
             <Task taskInfo={task} key={task.id} />
           ))}
         </>

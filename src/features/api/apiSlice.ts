@@ -4,7 +4,7 @@ import {
   IGoogleTaskDescription,
   IGoogleTaskListResponse,
   IGoogleTaskResponse,
-} from "./interfaces";
+} from "../../interfaces";
 
 export const apiSlice = createApi({
   reducerPath: "api",
