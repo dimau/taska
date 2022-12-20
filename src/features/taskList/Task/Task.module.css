@@ -1,11 +1,13 @@
 .task {
-  padding: calc(4 * var(--basic-unit)) 0;
+  padding-top: calc(4 * var(--basic-unit));
+  padding-bottom: calc(4 * var(--basic-unit));
+  padding-right: calc(4 * var(--basic-unit));
   border-bottom: 1px solid var(--border-light-gray);
+  border-radius: var(--border-radius-standard);
   display: grid;
   grid-template-columns: min-content auto;
   grid-template-rows: auto auto;
   align-items: center;
-  gap: 0.5em;
   position: relative;
 }
 
@@ -14,7 +16,8 @@
 }
 
 .task.active {
-  background-color: var(--background-gray);
+  background-color: var(--background-gray-selected);
+  box-shadow: 0 0 calc(3 * var(--basic-unit)) var(--background-dark-gray);
 }
 
 .taskTitle {
@@ -22,6 +25,7 @@
   grid-column-end: 3;
   grid-row-start: 1;
   grid-row-end: 2;
+  padding-bottom: calc(2 * var(--basic-unit));
 }
 
 .taskDone .taskTitle {
@@ -34,6 +38,9 @@
   grid-column-end: 2;
   grid-row-start: 1;
   grid-row-end: 2;
+  padding-left: calc(2 * var(--basic-unit));
+  padding-right: calc(2 * var(--basic-unit));
+  padding-bottom: calc(2 * var(--basic-unit));
 }
 
 .description {
@@ -41,7 +48,7 @@
   grid-column-end: 3;
   grid-row-start: 2;
   grid-row-end: 3;
-  white-space: pre-line;
+  white-space: pre-line; /* show description with \n and spaces as is */
   font-size: var(--font-size-text-small);
   color: var(--text-middle-gray);
   transition: max-height 250ms, color 250ms;

@@ -4,13 +4,15 @@
   --text-light-gray: #d5d5d5;
   --border-light-gray: #eeeeee;
   --border-dark-gray: #555555;
+  --background-dark-gray: #757777;
   --background-gray: #fffefc;
+  --background-gray-selected: #eef1f3;
   --background-white: #ffffff;
   --ui-primary: #3b8ea5;
   --ui-primary-green: #83c257;
   --ui-primary-green-bright: #52be06;
   --basic-unit: 0.25rem; /* it's about 4px for standard 16px font-size */
-  --border-radius-standard: 0.25rem; /* it's about 4px for standard 16px font-size */
+  --border-radius-standard: 0.5rem; /* it's about 4px for standard 16px font-size */
   --font-family-logo: "Roboto", sans-serif;
   --font-family-main: "Roboto", sans-serif;
   --font-size-header-big: 2rem;

@@ -20,8 +20,6 @@ export function Task({ taskInfo }: TaskProps) {
 
   // Toggling task active / not active
   const toggleActive = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    // It's click on label with text and we should handle it in another function
-    if (e.target !== e.currentTarget) return;
     dispatch(taskListActions.changeActiveTask({ activeTaskId: taskInfo.id }));
   };
 
@@ -66,14 +64,15 @@ export function Task({ taskInfo }: TaskProps) {
         [styles.active]: taskInfo.id === activeTaskId,
       })}
     >
-      <input
-        type="checkbox"
-        checked={taskInfo.status === "completed"}
-        onChange={handleToggle}
-        data-taskid={taskInfo.id}
-        id={taskInfo.id}
-        className={styles.input}
-      />
+      <div className={styles.input}>
+        <input
+          type="checkbox"
+          checked={taskInfo.status === "completed"}
+          onChange={handleToggle}
+          data-taskid={taskInfo.id}
+          id={taskInfo.id}
+        />
+      </div>
       <div className={styles.taskTitle} onClick={toggleActive}>
         <label htmlFor={taskInfo.id}>{taskInfo.title}</label>
       </div>
@@ -81,6 +80,7 @@ export function Task({ taskInfo }: TaskProps) {
         className={clsx(styles.description, {
           [styles.opened]: activeTaskId === taskInfo.id,
         })}
+        onClick={toggleActive}
       >
         {taskInfo.notes}
       </div>
