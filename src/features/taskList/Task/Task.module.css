@@ -1,11 +1,23 @@
 .task {
   padding: calc(4 * var(--basic-unit)) 0;
   border-bottom: 1px solid var(--border-light-gray);
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: min-content auto;
+  grid-template-rows: auto auto;
   align-items: center;
   gap: 0.5em;
   position: relative;
+}
+
+.task:last-child {
+  border-bottom: none;
+}
+
+.taskTitle {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
 }
 
 .taskDone .taskTitle {
@@ -13,6 +25,18 @@
   color: var(--text-light-gray);
 }
 
-.task:last-child {
-  border-bottom: none;
+.input {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+.description {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+  white-space: pre-line;
+  font-size: var(--font-size-text-small);
 }

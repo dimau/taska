@@ -60,10 +60,12 @@ export function Task({ taskInfo }: TaskProps) {
         onChange={handleToggle}
         data-taskid={taskInfo.id}
         id={taskInfo.id}
+        className={styles.input}
       />
       <label className={styles.taskTitle} htmlFor={taskInfo.id}>
         {taskInfo.title}
       </label>
+      <div className={styles.description}>{taskInfo.notes}</div>
       <TaskActionPanel taskInfo={taskInfo} />
     </div>
   );

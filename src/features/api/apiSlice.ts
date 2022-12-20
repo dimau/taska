@@ -34,8 +34,7 @@ export const apiSlice = createApi({
         method: "GET",
       }),
       providesTags: ["Task"],
-      transformResponse: (response: IGoogleTaskResponse) =>
-        response.items.sort((a, b) => (a.due > b.due ? 1 : -1)), // Sort array of Google tasks based on due date
+      transformResponse: (response: IGoogleTaskResponse) => response.items,
     }),
 
     // Creating a new task

@@ -15,6 +15,7 @@
   --font-size-header-big: 2rem;
   --font-size-header-middle: 1.5rem;
   --font-size-text-middle: 1rem;
+  --font-size-text-small: 0.875rem; /* usually it's 14px on desktop */
 }
 
 body {
