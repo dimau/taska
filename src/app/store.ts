@@ -19,11 +19,13 @@ import {
 import storage from "redux-persist/lib/storage";
 import { taskGroupListReducer } from "../features/taskGroupsList/taskGroupListSlice";
 import { apiGoogleAuthSlice } from "../features/api/apiGoogleAuthSlice";
+import { taskListReducer } from "../features/taskList/taskListSlice";
 
 const rootReducer = combineReducers({
   newTask: newTaskReducer,
   selectedFilter: filterReducer,
   selectedTaskGroup: taskGroupListReducer,
+  taskList: taskListReducer,
   auth: authReducer,
   [apiSlice.reducerPath]: apiSlice.reducer,
   [apiGoogleAuthSlice.reducerPath]: apiGoogleAuthSlice.reducer,

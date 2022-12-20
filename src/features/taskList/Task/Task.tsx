@@ -2,10 +2,12 @@ import React from "react";
 import styles from "./Task.module.css";
 import hoverStyles from "./TaskHover.module.css";
 import { TaskActionPanel } from "../TaskActionPanel/TaskActionPanel";
-import { useAppSelector } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { selectActiveTaskGroupId } from "../../taskGroupsList/taskGroupListSlice";
 import { useToggleTaskStatusMutation } from "../../api/apiSlice";
 import { IGoogleTaskDescription } from "../../../interfaces";
+import clsx from "clsx";
+import { selectActiveTaskId, taskListActions } from "../taskListSlice";
 
 interface TaskProps {
   taskInfo: IGoogleTaskDescription;
@@ -13,6 +15,15 @@ interface TaskProps {
 
 export function Task({ taskInfo }: TaskProps) {
   const activeTaskGroupId = useAppSelector(selectActiveTaskGroupId);
+  const activeTaskId = useAppSelector(selectActiveTaskId);
+  const dispatch = useAppDispatch();
+
+  // Toggling task active / not active
+  const toggleActive = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    // It's click on label with text and we should handle it in another function
+    if (e.target !== e.currentTarget) return;
+    dispatch(taskListActions.changeActiveTask({ activeTaskId: taskInfo.id }));
+  };
 
   // Toggling tasks (completed / not completed)
   const [toggleTask, { isLoading: isLoadingToggling }] =
@@ -50,9 +61,10 @@ export function Task({ taskInfo }: TaskProps) {
 
   return (
     <div
-      className={`${styles.task} ${
-        taskInfo.status === "completed" ? styles.taskDone : ""
-      } ${hoverStyles.taskHoverParent}`}
+      className={clsx(styles.task, hoverStyles.taskHoverParent, {
+        [styles.taskDone]: taskInfo.status === "completed",
+        [styles.active]: taskInfo.id === activeTaskId,
+      })}
     >
       <input
         type="checkbox"
@@ -62,10 +74,16 @@ export function Task({ taskInfo }: TaskProps) {
         id={taskInfo.id}
         className={styles.input}
       />
-      <label className={styles.taskTitle} htmlFor={taskInfo.id}>
-        {taskInfo.title}
-      </label>
-      <div className={styles.description}>{taskInfo.notes}</div>
+      <div className={styles.taskTitle} onClick={toggleActive}>
+        <label htmlFor={taskInfo.id}>{taskInfo.title}</label>
+      </div>
+      <div
+        className={clsx(styles.description, {
+          [styles.opened]: activeTaskId === taskInfo.id,
+        })}
+      >
+        {taskInfo.notes}
+      </div>
       <TaskActionPanel taskInfo={taskInfo} />
     </div>
   );
