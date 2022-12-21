@@ -1,0 +1,20 @@
+.taskTitle {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  padding-bottom: calc(2 * var(--basic-unit));
+}
+
+.taskTitle.taskDone {
+  text-decoration: line-through;
+  color: var(--text-light-gray);
+}
+
+.input {
+  border: none;
+  width: 100%;
+  padding: 0;
+  outline: none;
+  background-color: var(--background-gray-selected);
+}

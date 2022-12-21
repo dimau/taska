@@ -1,0 +1,12 @@
+.root {
+  /* Position inside the Task */
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
+
+  /* Inner space organizing */
+  padding-left: calc(2 * var(--basic-unit));
+  padding-right: calc(2 * var(--basic-unit));
+  padding-bottom: calc(2 * var(--basic-unit));
+}

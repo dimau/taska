@@ -1,0 +1,27 @@
+.description {
+  /* Position inside the Task */
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+
+  white-space: pre-line; /* show description with \n and spaces as is */
+  font-size: var(--font-size-text-small);
+  color: var(--text-middle-gray);
+  transition: max-height 250ms, color 250ms;
+
+  /* To show only 1-2 strings of description at first for each task */
+  max-height: 32px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical; /* I don't know why this 3 lines are necessarily for displaying ... in the end */
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+}
+
+.description.opened {
+  max-height: 200px;
+  color: var(--text-dark-gray);
+  -webkit-line-clamp: initial;
+  display: block;
+}

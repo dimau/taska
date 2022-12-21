@@ -21,6 +21,20 @@ export interface IGoogleTaskDescription {
   links: string[];
 }
 
+export interface IGoogleTaskDescriptionPatch {
+  kind: string; // "tasks#task"
+  id: string; // "NXh1d0pEZkZqUWxkSmlZbw"
+  etag?: string; // "\"LTg2NjI2MDI4NQ\""
+  title?: string; // "Персональное финансовое состояние"
+  updated?: string; // "2022-12-05T10:29:06.000Z"
+  selfLink?: string;
+  position?: string; // "00000000000000000008",
+  notes?: string; // "Каждый день решать 2 задачки на DSA",
+  status?: string; // "needsAction",
+  due?: string; // "2022-12-06T00:00:00.000Z",
+  links?: string[];
+}
+
 export interface IGoogleTaskListResponse {
   kind: string;
   etag: string;

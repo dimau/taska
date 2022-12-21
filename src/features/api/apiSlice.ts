@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../../app/store";
 import {
   IGoogleTaskDescription,
+  IGoogleTaskDescriptionPatch,
   IGoogleTaskListResponse,
   IGoogleTaskResponse,
 } from "../../interfaces";
@@ -30,7 +31,9 @@ export const apiSlice = createApi({
       { taskListId: string }
     >({
       query: ({ taskListId }) => ({
-        url: `/lists/${taskListId}/tasks?showCompleted=true&showHidden=true&maxResults=100`,
+        // I used here additional query parameter &_= new Date().getTime(),
+        // it helps as a workaround to get actual data each time, not the cached data
+        url: `/lists/${taskListId}/tasks?showCompleted=true&showHidden=true&maxResults=100&_=${new Date().getTime()}`,
         method: "GET",
       }),
       providesTags: ["Task"],
@@ -76,6 +79,47 @@ export const apiSlice = createApi({
             "getTasksByTaskListId",
             { taskListId: taskList },
             (draft) => draft.filter((task) => task.id != taskId)
+          )
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
+    }),
+
+    // Change task title or description
+    editTask: builder.mutation({
+      query: ({ title, description, taskListId, taskId }) => {
+        const body: IGoogleTaskDescriptionPatch = {
+          kind: "tasks#task",
+          id: taskId,
+        };
+        if (title) body.title = title;
+        if (description) body.notes = description;
+        return {
+          url: `/lists/${taskListId}/tasks/${taskId}`,
+          method: "PATCH",
+          body,
+        };
+      },
+      invalidatesTags: ["Task"],
+      async onQueryStarted(
+        { title, description, taskListId, taskId },
+        { dispatch, queryFulfilled }
+      ) {
+        const patchResult = dispatch(
+          apiSlice.util.updateQueryData(
+            "getTasksByTaskListId",
+            { taskListId },
+            (draft) => {
+              const task = draft.find((task) => task.id === taskId);
+              if (task) {
+                if (title) task.title = title;
+                if (description) task.notes = description;
+              }
+            }
           )
         );
         try {
@@ -132,5 +176,6 @@ export const {
   useGetTasksByTaskListIdQuery,
   useCreateTaskMutation,
   useDeleteTaskMutation,
+  useEditTaskMutation,
   useToggleTaskStatusMutation,
 } = apiSlice;
