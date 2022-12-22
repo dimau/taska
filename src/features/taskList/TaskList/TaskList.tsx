@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useRef } from "react";
 import styles from "./TaskList.module.css";
 import { useAppSelector } from "../../../app/hooks";
 import {
@@ -11,6 +11,7 @@ import {
   selectCurrentFilter,
 } from "../../filter/filterSlice";
 import { DateGroup } from "../DateGroup/DateGroup";
+import { useOutsideActiveTaskClearer } from "./hooks";
 
 export function TaskList() {
   // Load Google tasks for specific active Task List from Google REST API (or from RTKQ cache)
@@ -33,6 +34,10 @@ export function TaskList() {
         }),
       }
     );
+
+  // Clear active task if user clicks not in TaskList
+  const wrapperRef = useRef(null);
+  useOutsideActiveTaskClearer(wrapperRef);
 
   // Deleting tasks
   const [deleteTask, { isLoading: isLoadingDeletion }] =
@@ -69,7 +74,7 @@ export function TaskList() {
 
   // Show all tasks in UI
   return (
-    <div className={styles.taskList} onClick={handleClick}>
+    <div className={styles.taskList} onClick={handleClick} ref={wrapperRef}>
       {isError ? (
         <>
           Please try later, there was an error with Google Api:{" "}

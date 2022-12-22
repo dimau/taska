@@ -20,7 +20,7 @@
 }
 
 .description.opened {
-  max-height: 200px;
+  max-height: 600px;
   color: var(--text-dark-gray);
   -webkit-line-clamp: initial;
   display: block;

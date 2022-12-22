@@ -17,6 +17,9 @@ const TaskListSlice = createSlice({
     ) => {
       state.activeTaskId = action.payload.activeTaskId;
     },
+    clearActiveTask: (state) => {
+      state.activeTaskId = "";
+    },
   },
 });
 
