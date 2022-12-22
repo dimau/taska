@@ -25,3 +25,17 @@
   -webkit-line-clamp: initial;
   display: block;
 }
+
+.label {
+  cursor: text;
+  width: max-content;
+}
+
+.textArea {
+  border: none;
+  width: 100%;
+  padding: 0;
+  outline: none;
+  background-color: var(--background-gray-selected);
+  resize: none;
+}

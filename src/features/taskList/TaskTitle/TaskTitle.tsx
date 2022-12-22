@@ -75,7 +75,11 @@ export function TaskTitle({ toggleActive, taskInfo }: ITaskTitleProps) {
           ref={setFocus}
         />
       ) : (
-        <label htmlFor={taskInfo.id} onClick={handleClickOnTitle}>
+        <label
+          htmlFor={taskInfo.id}
+          onClick={handleClickOnTitle}
+          className={styles.label}
+        >
           {taskInfo.title}
         </label>
       )}
