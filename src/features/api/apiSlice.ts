@@ -89,15 +89,16 @@ export const apiSlice = createApi({
       },
     }),
 
-    // Change task title or description
+    // Change task (title, description, due date)
     editTask: builder.mutation({
-      query: ({ title, description, taskListId, taskId }) => {
+      query: ({ title, description, due, taskListId, taskId }) => {
         const body: IGoogleTaskDescriptionPatch = {
           kind: "tasks#task",
           id: taskId,
         };
         if (title) body.title = title;
         if (description) body.notes = description;
+        if (due) body.due = due;
         return {
           url: `/lists/${taskListId}/tasks/${taskId}`,
           method: "PATCH",
@@ -106,7 +107,7 @@ export const apiSlice = createApi({
       },
       invalidatesTags: ["Task"],
       async onQueryStarted(
-        { title, description, taskListId, taskId },
+        { title, description, due, taskListId, taskId },
         { dispatch, queryFulfilled }
       ) {
         const patchResult = dispatch(
@@ -118,6 +119,7 @@ export const apiSlice = createApi({
               if (task) {
                 if (title) task.title = title;
                 if (description) task.notes = description;
+                if (due) task.due = due;
               }
             }
           )
@@ -166,6 +168,38 @@ export const apiSlice = createApi({
         }
       },
     }),
+
+    // Change task position inside the list
+    changeTaskPosition: builder.mutation({
+      query: ({ taskListId, taskId, prevTaskId }) => ({
+        url: `/lists/${taskListId}/tasks/${taskId}/move?previous=${prevTaskId}`,
+        method: "POST",
+      }),
+      invalidatesTags: ["Task"],
+      async onQueryStarted(
+        { taskListId, taskId, prevTaskId },
+        { dispatch, queryFulfilled }
+      ) {
+        const patchResult = dispatch(
+          apiSlice.util.updateQueryData(
+            "getTasksByTaskListId",
+            { taskListId },
+            (draft) => {
+              const task = draft.find((task) => task.id === taskId);
+              const prevTask = draft.find((task) => task.id === prevTaskId);
+              if (task && prevTask) {
+                task.position = prevTask.position + "5";
+              }
+            }
+          )
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
+    }),
   }),
 });
 
@@ -178,4 +212,5 @@ export const {
   useDeleteTaskMutation,
   useEditTaskMutation,
   useToggleTaskStatusMutation,
+  useChangeTaskPositionMutation,
 } = apiSlice;

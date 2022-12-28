@@ -27,6 +27,7 @@ export function selectCurrentFilter(state: RootState) {
 }
 
 // This selector-creator returns memoized selector instance that works with RTKQ cache instead of Redux State
+// TODO: Seems like it's unused code
 export function createSelectFilteredTasks() {
   const emptyArray: IGoogleTaskDescription[] = [];
   return createSelector(

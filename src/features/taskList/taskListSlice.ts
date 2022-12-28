@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
+import { apiSlice } from "../api/apiSlice";
 
 const initialState = {
   activeTaskId: "",
@@ -33,3 +34,12 @@ export function selectTaskListSlice(state: RootState) {
 export function selectActiveTaskId(state: RootState) {
   return selectTaskListSlice(state).activeTaskId;
 }
+
+export const selectTasksByTaskListIdResult = (taskListId: string) =>
+  apiSlice.endpoints.getTasksByTaskListId.select({ taskListId });
+
+export const selectAllTasksByTaskListId = (taskListId: string) =>
+  createSelector(
+    selectTasksByTaskListIdResult(taskListId),
+    (result) => result?.data ?? []
+  );

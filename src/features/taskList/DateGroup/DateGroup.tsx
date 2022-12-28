@@ -3,6 +3,7 @@ import { Task } from "../Task/Task";
 import { IGoogleTaskDescription } from "../../../interfaces";
 import { datePrettier } from "../utils";
 import styles from "./DateGroup.module.css";
+import { Droppable } from "react-beautiful-dnd";
 
 interface IDateGroupProps {
   date: string;
@@ -11,11 +12,16 @@ interface IDateGroupProps {
 
 export function DateGroup({ date, tasks }: IDateGroupProps) {
   return (
-    <div>
-      <div className={styles.date}>{datePrettier(date)}</div>
-      {tasks.map((task) => (
-        <Task taskInfo={task} key={task.id} />
-      ))}
-    </div>
+    <Droppable droppableId={date}>
+      {(provided) => (
+        <div {...provided.droppableProps} ref={provided.innerRef}>
+          <div className={styles.date}>{datePrettier(date)}</div>
+          {tasks.map((task) => (
+            <Task taskInfo={task} key={task.id} />
+          ))}
+          {provided.placeholder}
+        </div>
+      )}
+    </Droppable>
   );
 }
