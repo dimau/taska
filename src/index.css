@@ -4,9 +4,11 @@
   --text-light-gray: #d5d5d5;
   --border-light-gray: #eeeeee;
   --border-dark-gray: #555555;
-  --background-dark-gray: #757777;
-  --background-gray: #fffefc;
-  --background-gray-selected: #eef1f3;
+  --background-dark-gray: #757777; /* for shadows */
+  --background-half-dart-gray: #c3c7c7;
+  --background-gray: #fffefc; /* background for all application */
+  --background-gray-selected: #eef1f3; /* background for active task */
+  --background-gray-selected-half-opacity: rgba(238, 241, 243, 0.9);
   --background-white: #ffffff;
   --ui-primary: #3b8ea5;
   --ui-primary-green: #83c257;

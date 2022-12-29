@@ -9,5 +9,4 @@
 
 .taskHoverParent:hover .taskHoverChild {
   display: flex;
-  gap: var(--basic-unit);
 }

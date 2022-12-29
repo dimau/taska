@@ -4,6 +4,7 @@
   padding-right: calc(4 * var(--basic-unit));
   border-bottom: 1px solid var(--border-light-gray);
   border-radius: var(--border-radius-standard);
+  background-color: var(--background-white);
   display: grid;
   grid-template-columns: min-content auto;
   grid-template-rows: auto auto;
@@ -11,11 +12,12 @@
   position: relative;
 }
 
-.task:last-child {
-  border-bottom: none;
-}
-
 .task.active {
   background-color: var(--background-gray-selected);
   box-shadow: 0 0 calc(3 * var(--basic-unit)) var(--background-dark-gray);
+  z-index: 100;
+}
+
+.task.isDragging {
+  border: 1px solid var(--border-light-gray);
 }

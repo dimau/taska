@@ -20,9 +20,15 @@ export function TasksListHeader() {
   return (
     <div className={styles.header}>
       <h1 className={styles.headerTitle}>
-        {activeTaskGroupTitle ? activeTaskGroupTitle : "TO DO"}
+        <span>{activeTaskGroupTitle ? activeTaskGroupTitle : "TO DO"}</span>
+        &nbsp;
+        <span
+          className={`material-symbols-outlined ${styles.refresh}`}
+          onClick={refetch}
+        >
+          refresh
+        </span>
       </h1>
-      <button onClick={refetch}>Update</button>
     </div>
   );
 }

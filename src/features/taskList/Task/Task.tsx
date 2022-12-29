@@ -27,11 +27,12 @@ export function Task({ taskInfo, index }: TaskProps) {
 
   return (
     <Draggable draggableId={taskInfo.id} index={index}>
-      {(provided) => (
+      {(provided, snapshot) => (
         <div
           className={clsx(styles.task, hoverStyles.taskHoverParent, {
             [styles.taskDone]: taskInfo.status === "completed",
             [styles.active]: taskInfo.id === activeTaskId,
+            [styles.isDragging]: snapshot.isDragging,
           })}
           ref={provided.innerRef}
           {...provided.draggableProps}

@@ -10,18 +10,22 @@ interface TaskActionPanelProps {
 export function TaskActionPanel({ taskInfo }: TaskActionPanelProps) {
   return (
     <div className={`${hoverStyles.taskHoverChild} ${styles.taskActionPanel}`}>
-      <span
-        className={`material-symbols-outlined button-edit ${styles.icon}`}
-        data-taskid={taskInfo.id}
-      >
-        edit
-      </span>
-      <span
-        className={`material-symbols-outlined button-delete ${styles.icon}`}
-        data-taskid={taskInfo.id}
-      >
-        delete
-      </span>
+      <div className={`${styles.pad} ${styles.padLeft}`}>
+        <span
+          className={`material-symbols-outlined button-edit ${styles.icon}`}
+          data-taskid={taskInfo.id}
+        >
+          edit
+        </span>
+      </div>
+      <div className={`${styles.pad} ${styles.padRight}`}>
+        <span
+          className={`material-symbols-outlined button-delete ${styles.icon}`}
+          data-taskid={taskInfo.id}
+        >
+          delete
+        </span>
+      </div>
     </div>
   );
 }

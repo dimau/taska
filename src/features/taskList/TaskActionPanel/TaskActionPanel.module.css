@@ -1,8 +1,28 @@
 .taskActionPanel {
+  border-radius: calc(2 * var(--basic-unit));
+  background-color: var(--background-gray-selected-half-opacity);
   display: none;
   position: absolute;
-  right: 0;
+  right: calc(2 * var(--basic-unit));
   cursor: pointer;
+}
+
+.pad {
+  padding: var(--basic-unit) calc(2 * var(--basic-unit));
+  border-radius: calc(2 * var(--basic-unit));
+  transition: background-color 200ms ease;
+}
+
+.padLeft {
+  padding-right: calc(1 * var(--basic-unit));
+}
+
+.padRight {
+  padding-left: calc(1 * var(--basic-unit));
+}
+
+.pad:hover {
+  background-color: var(--background-half-dart-gray);
 }
 
 .icon {
