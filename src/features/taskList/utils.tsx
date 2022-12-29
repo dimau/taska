@@ -33,18 +33,3 @@ export function datePrettier(uglyDate: string | undefined): string {
     monthsRussian[date.getMonth()]
   } ${date.getFullYear()}, ${daysRussian[date.getDay()]}`;
 }
-
-// Google Task use position for tasks like "00000000000000000007" with 20 chars
-// We should make the same format from usual number n
-export function makePrevTaskPositionString(
-  n: number | undefined
-): string | undefined {
-  if (n === undefined) return undefined;
-  const NUMBER_OF_DIGITS_SHOULD_HAVE = 20;
-  const prevTaskPositionNumber = n - 1;
-  const numDig = String(prevTaskPositionNumber).length;
-  return (
-    new Array(NUMBER_OF_DIGITS_SHOULD_HAVE - numDig).fill(0).join("") +
-    prevTaskPositionNumber
-  );
-}

@@ -10,13 +10,12 @@ import {
 import { selectActiveTaskGroupId } from "../../taskGroupsList/taskGroupListSlice";
 import {
   createSelectFilteredTasksGroupedByDate,
+  createSelectAllTasksSortedByPosition,
   selectCurrentFilter,
 } from "../../filter/filterSlice";
 import { DateGroup } from "../DateGroup/DateGroup";
 import { useOutsideActiveTaskClearer } from "./hooks";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
-import { makePrevTaskPositionString } from "../utils";
-import { selectAllTasksByTaskListId } from "../taskListSlice";
 
 export function TaskList() {
   // Load Google tasks for specific active Task List from Google REST API (or from RTKQ cache)
@@ -26,28 +25,37 @@ export function TaskList() {
     createSelectFilteredTasksGroupedByDate(),
     []
   );
-  const { filteredTasks, isLoading, isSuccess, isError, error } =
-    useGetTasksByTaskListIdQuery(
-      {
-        taskListId: `${activeTaskGroupId}`,
-      },
-      {
-        selectFromResult: (result) => ({
-          ...result,
-          // @ts-ignore
-          filteredTasks: selectFilteredTasks(result, currentFilter),
-        }),
-      }
-    );
+  const selectAllTasksSortedByPosition = useCallback(
+    createSelectAllTasksSortedByPosition(),
+    []
+  );
+  const {
+    filteredTasks,
+    allTasksSortedByPosition,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetTasksByTaskListIdQuery(
+    {
+      taskListId: `${activeTaskGroupId}`,
+    },
+    {
+      selectFromResult: (result) => ({
+        ...result,
+        // @ts-ignore
+        filteredTasks: selectFilteredTasks(result, currentFilter),
+        // @ts-ignore
+        allTasksSortedByPosition: selectAllTasksSortedByPosition(result),
+      }),
+    }
+  );
 
   // Clear active task if user clicks not in TaskList
   const wrapperRef = useRef(null);
   useOutsideActiveTaskClearer(wrapperRef);
 
   // Hooks for task positions changing
-  const allTasksByTaskListId = useAppSelector(
-    selectAllTasksByTaskListId(activeTaskGroupId)
-  );
   const [editTask, { isLoading: isLoadingEditing }] = useEditTaskMutation();
   const [changeTaskPosition, { isLoading: isChangingTaskPosition }] =
     useChangeTaskPositionMutation();
@@ -87,20 +95,60 @@ export function TaskList() {
 
   // Drag and drop of tasks
   const handleOnDragEnd = (result: DropResult) => {
-    const { draggableId: taskId, destination } = result;
-    const newDueDate = destination?.droppableId;
-    const prevTaskPosition = makePrevTaskPositionString(destination?.index);
-    const prevTaskId = allTasksByTaskListId.find(
-      (task) => task.position === prevTaskPosition
-    )?.id;
-    if (newDueDate) asyncEditTaskDateHandling(taskId, newDueDate);
-    if (prevTaskId) asyncChangingTaskPositionHandling(taskId, prevTaskId);
-    console.log({
-      droppableId: destination?.droppableId,
-      index: destination?.index,
-      prevTaskPosition,
-      prevTaskId,
-    });
+    const { draggableId: taskId, source, destination } = result;
+
+    // If user dropped task not in the droppable zone
+    if (!destination) return;
+
+    // If nothing changed
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    )
+      return;
+
+    const newDueDate = destination.droppableId;
+    const newIndex = destination.index;
+
+    // Find array of tasks for destination date group
+    let destinationDateGroupTasks = filteredTasks.filter(
+      (dateGroup) => dateGroup.date === newDueDate
+    )?.[0]?.tasks;
+    if (!destinationDateGroupTasks) return;
+
+    // Find prevTaskId in terms of Google Task positions
+    let prevTaskId: string | null = null;
+
+    // If user moved task to the first position in the date group (doesn't matter new or the same date group)
+    if (newIndex === 0) {
+      const nextTaskId = destinationDateGroupTasks[0].id; // we can only take the next task from the list
+      const nextTaskIndex = allTasksSortedByPosition.findIndex(
+        // and then find the corresponding previous task in Google
+        (task) => task.id === nextTaskId
+      );
+      prevTaskId =
+        nextTaskIndex > 0
+          ? allTasksSortedByPosition[nextTaskIndex - 1].id
+          : null;
+    }
+
+    // If we move task to another date group
+    if (destination.droppableId !== source.droppableId && newIndex > 0) {
+      prevTaskId = destinationDateGroupTasks[newIndex - 1].id;
+    }
+
+    // If we move task inside the same date group
+    if (destination.droppableId === source.droppableId && newIndex > 0) {
+      const newDateGroupTasks = Array.from(destinationDateGroupTasks);
+      newDateGroupTasks.splice(source.index, 1);
+      prevTaskId = newDateGroupTasks[newIndex - 1].id;
+    }
+
+    // Update due date for the task if user moved it to another date group
+    if (destination.droppableId !== source.droppableId)
+      asyncEditTaskDateHandling(taskId, newDueDate);
+    // Move task to the new position
+    asyncChangingTaskPositionHandling(taskId, prevTaskId);
   };
 
   const asyncEditTaskDateHandling = async (
@@ -122,7 +170,7 @@ export function TaskList() {
 
   const asyncChangingTaskPositionHandling = async (
     taskId: string,
-    prevTaskId: string
+    prevTaskId: string | null
   ) => {
     if (!isChangingTaskPosition) {
       try {

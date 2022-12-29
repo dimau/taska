@@ -171,10 +171,18 @@ export const apiSlice = createApi({
 
     // Change task position inside the list
     changeTaskPosition: builder.mutation({
-      query: ({ taskListId, taskId, prevTaskId }) => ({
-        url: `/lists/${taskListId}/tasks/${taskId}/move?previous=${prevTaskId}`,
-        method: "POST",
-      }),
+      query: ({ taskListId, taskId, prevTaskId }) => {
+        if (prevTaskId)
+          return {
+            url: `/lists/${taskListId}/tasks/${taskId}/move?previous=${prevTaskId}`,
+            method: "POST",
+          };
+        return {
+          // It's the case when we are going to move task in the very beginning of the list (zero position)
+          url: `/lists/${taskListId}/tasks/${taskId}/move`,
+          method: "POST",
+        };
+      },
       invalidatesTags: ["Task"],
       async onQueryStarted(
         { taskListId, taskId, prevTaskId },
@@ -187,8 +195,14 @@ export const apiSlice = createApi({
             (draft) => {
               const task = draft.find((task) => task.id === taskId);
               const prevTask = draft.find((task) => task.id === prevTaskId);
+              // Temporarily change position of the task to the right after position of the previous task
               if (task && prevTask) {
                 task.position = prevTask.position + "5";
+              }
+              // It's case when we are going to place task as the very first task of the whole list
+              // It works because ascii "/" is less than "0", so this is less then all zero string
+              if (task && !prevTask) {
+                task.position = "0000000000000000000/";
               }
             }
           )

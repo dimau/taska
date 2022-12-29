@@ -16,8 +16,8 @@ export function DateGroup({ date, tasks }: IDateGroupProps) {
       {(provided) => (
         <div {...provided.droppableProps} ref={provided.innerRef}>
           <div className={styles.date}>{datePrettier(date)}</div>
-          {tasks.map((task) => (
-            <Task taskInfo={task} key={task.id} />
+          {tasks.map((task, index) => (
+            <Task taskInfo={task} index={index} key={task.id} />
           ))}
           {provided.placeholder}
         </div>

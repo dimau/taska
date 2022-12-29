@@ -27,30 +27,6 @@ export function selectCurrentFilter(state: RootState) {
 }
 
 // This selector-creator returns memoized selector instance that works with RTKQ cache instead of Redux State
-// TODO: Seems like it's unused code
-export function createSelectFilteredTasks() {
-  const emptyArray: IGoogleTaskDescription[] = [];
-  return createSelector(
-    (res: { data: IGoogleTaskDescription[] }) => res.data,
-    (res: { data: IGoogleTaskDescription[] }, currentFilter: string) =>
-      currentFilter,
-    (data, currentFilter) =>
-      data?.filter((task) => {
-        if (
-          task.status === "needsAction" &&
-          (currentFilter === "filter-all" || currentFilter === "filter-active")
-        )
-          return true;
-        return (
-          task.status === "completed" &&
-          (currentFilter === "filter-all" ||
-            currentFilter === "filter-completed")
-        );
-      }) ?? emptyArray
-  );
-}
-
-// This selector-creator returns memoized selector instance that works with RTKQ cache instead of Redux State
 export function createSelectFilteredTasksGroupedByDate() {
   const emptyArray: IGoogleTaskDescription[] = [];
   return createSelector(
@@ -99,6 +75,21 @@ export function createSelectFilteredTasksGroupedByDate() {
 
       // Return result
       return res;
+    }
+  );
+}
+
+// This selector-creator returns memoized selector instance that works with RTKQ cache instead of Redux State
+export function createSelectAllTasksSortedByPosition() {
+  const emptyArray: IGoogleTaskDescription[] = [];
+  return createSelector(
+    (res: { data: IGoogleTaskDescription[] }) => res.data,
+    (data) => {
+      // If data is undefined
+      if (!data) return emptyArray;
+
+      // Sorting all tasks of current task list in position order
+      return [...data].sort((a, b) => (a.position > b.position ? 1 : -1));
     }
   );
 }

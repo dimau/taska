@@ -13,9 +13,10 @@ import { Draggable } from "react-beautiful-dnd";
 
 interface TaskProps {
   taskInfo: IGoogleTaskDescription;
+  index: number;
 }
 
-export function Task({ taskInfo }: TaskProps) {
+export function Task({ taskInfo, index }: TaskProps) {
   const activeTaskId = useAppSelector(selectActiveTaskId);
   const dispatch = useAppDispatch();
 
@@ -25,7 +26,7 @@ export function Task({ taskInfo }: TaskProps) {
   };
 
   return (
-    <Draggable draggableId={taskInfo.id} index={+taskInfo.position}>
+    <Draggable draggableId={taskInfo.id} index={index}>
       {(provided) => (
         <div
           className={clsx(styles.task, hoverStyles.taskHoverParent, {
