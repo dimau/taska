@@ -1,0 +1,53 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: calc(6 * var(--basic-unit));
+}
+
+.titleInput {
+  box-sizing: border-box;
+  width: 100%;
+  padding: calc(2 * var(--basic-unit));
+  outline: none;
+  border: 1px solid var(--background-gray-selected);
+  border-radius: calc(2 * var(--basic-unit));
+  color: var(--text-dark-gray);
+}
+
+.descriptionInput {
+  width: 100%;
+  box-sizing: border-box;
+  padding: calc(2 * var(--basic-unit));
+  outline: none;
+  background-color: var(--background-white);
+  border: 1px solid var(--background-gray-selected);
+  border-radius: calc(2 * var(--basic-unit));
+  resize: none;
+  color: var(--text-dark-gray);
+}
+
+.dateInput {
+  align-self: end;
+  padding: calc(2 * var(--basic-unit));
+  outline: none;
+  border: 1px solid var(--background-gray-selected);
+  border-radius: calc(2 * var(--basic-unit));
+  color: var(--text-dark-gray);
+}
+
+.titleInput:focus,
+.descriptionInput:focus,
+.dateInput:focus {
+  border: 1px solid var(--ui-primary);
+}
+
+.descriptionBox {
+  display: flex;
+  flex-direction: column;
+  gap: calc(2 * var(--basic-unit));
+}
+
+.buttonsBox {
+  display: flex;
+  justify-content: space-between;
+}
