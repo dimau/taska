@@ -6,7 +6,7 @@ import { selectActiveTaskId } from "../taskListSlice";
 import { IGoogleTaskDescription } from "../../../interfaces";
 import { selectActiveTaskGroupId } from "../../taskGroupsList/taskGroupListSlice";
 import { useEditTaskMutation } from "../../api/apiSlice";
-import { useAutosizeTextArea } from "./useAutoSizeTextArea";
+import { useAutosizeTextArea } from "../useAutoSizeTextArea";
 
 interface ITaskDescriptionProps {
   taskInfo: IGoogleTaskDescription;

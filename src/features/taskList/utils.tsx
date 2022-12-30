@@ -33,3 +33,12 @@ export function datePrettier(uglyDate: string | undefined): string {
     monthsRussian[date.getMonth()]
   } ${date.getFullYear()}, ${daysRussian[date.getDay()]}`;
 }
+
+export function dateFormatterForInput(
+  dateString: string | undefined
+): string | undefined {
+  if (!dateString || dateString === "undefined") return undefined;
+
+  const date = new Date(dateString);
+  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+}

@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../../app/store";
 import {
+  IEditTaskParams,
   IGoogleTaskDescription,
   IGoogleTaskDescriptionPatch,
   IGoogleTaskListResponse,
@@ -91,7 +92,13 @@ export const apiSlice = createApi({
 
     // Change task (title, description, due date)
     editTask: builder.mutation({
-      query: ({ title, description, due, taskListId, taskId }) => {
+      query: ({
+        title,
+        description,
+        due,
+        taskListId,
+        taskId,
+      }: IEditTaskParams) => {
         const body: IGoogleTaskDescriptionPatch = {
           kind: "tasks#task",
           id: taskId,

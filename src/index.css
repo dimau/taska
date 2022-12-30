@@ -18,7 +18,7 @@
   --font-family-logo: "Roboto", sans-serif;
   --font-family-main: "Roboto", sans-serif;
   --font-size-header-big: 2rem;
-  --font-size-header-middle: 1.5rem;
+  --font-size-header-middle: 1.125rem; /* usually it's 18px on desktop */
   --font-size-text-middle: 1rem;
   --font-size-text-small: 0.875rem; /* usually it's 14px on desktop */
 }

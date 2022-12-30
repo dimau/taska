@@ -35,6 +35,14 @@ export interface IGoogleTaskDescriptionPatch {
   links?: string[];
 }
 
+export interface IEditTaskParams {
+  title?: string;
+  description?: string;
+  due?: string;
+  taskListId: string;
+  taskId: string;
+}
+
 export interface IGoogleTaskListResponse {
   kind: string;
   etag: string;

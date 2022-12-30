@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Task.module.css";
 import hoverStyles from "./TaskHover.module.css";
 import { TaskActionPanel } from "../TaskActionPanel/TaskActionPanel";
@@ -10,6 +10,7 @@ import { TaskTitle } from "../TaskTitle/TaskTitle";
 import { TaskDescription } from "../TaskDescription/TaskDescription";
 import { TaskCheckbox } from "../TaskCheckbox/TaskCheckbox";
 import { Draggable } from "react-beautiful-dnd";
+import { TaskModalEditor } from "../TaskModalEditor/TaskModalEditor";
 
 interface TaskProps {
   taskInfo: IGoogleTaskDescription;
@@ -19,6 +20,9 @@ interface TaskProps {
 export function Task({ taskInfo, index }: TaskProps) {
   const activeTaskId = useAppSelector(selectActiveTaskId);
   const dispatch = useAppDispatch();
+
+  // Modal window for editing task
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   // Toggling task active / not active
   const toggleActive = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -38,10 +42,19 @@ export function Task({ taskInfo, index }: TaskProps) {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
+          {isOpenModal && (
+            <TaskModalEditor
+              taskInfo={taskInfo}
+              onClose={() => setIsOpenModal(false)}
+            />
+          )}
           <TaskCheckbox taskInfo={taskInfo} />
           <TaskTitle taskInfo={taskInfo} toggleActive={toggleActive} />
           <TaskDescription taskInfo={taskInfo} toggleActive={toggleActive} />
-          <TaskActionPanel taskInfo={taskInfo} />
+          <TaskActionPanel
+            taskInfo={taskInfo}
+            onEdit={() => setIsOpenModal(true)}
+          />
         </div>
       )}
     </Draggable>

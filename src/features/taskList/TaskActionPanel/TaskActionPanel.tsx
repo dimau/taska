@@ -5,15 +5,17 @@ import { IGoogleTaskDescription } from "../../../interfaces";
 
 interface TaskActionPanelProps {
   taskInfo: IGoogleTaskDescription;
+  onEdit: () => void;
 }
 
-export function TaskActionPanel({ taskInfo }: TaskActionPanelProps) {
+export function TaskActionPanel({ taskInfo, onEdit }: TaskActionPanelProps) {
   return (
     <div className={`${hoverStyles.taskHoverChild} ${styles.taskActionPanel}`}>
       <div className={`${styles.pad} ${styles.padLeft}`}>
         <span
           className={`material-symbols-outlined button-edit ${styles.icon}`}
           data-taskid={taskInfo.id}
+          onClick={onEdit}
         >
           edit
         </span>

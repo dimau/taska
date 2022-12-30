@@ -37,6 +37,7 @@ export function TaskTitle({ toggleActive, taskInfo }: ITaskTitleProps) {
     setNewTitleValue(e.target.value);
   };
 
+  // Handle Submit new title value to REST API
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     asyncEditTitleHandling();

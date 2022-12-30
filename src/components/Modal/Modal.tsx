@@ -4,7 +4,7 @@ import styles from "./Modal.module.css";
 
 interface ModalProps {
   children: React.ReactNode;
-  title: string;
+  title: React.ReactNode;
   onClose: () => void;
 }
 
@@ -13,11 +13,14 @@ export function Modal({ children, title, onClose }: ModalProps) {
     <div className={styles.root}>
       <div className={styles.overlay} onClick={onClose} />
       <div className={styles.window}>
+        <span
+          className={`material-symbols-outlined ${styles.cancelIcon}`}
+          onClick={onClose}
+        >
+          close
+        </span>
         <div className={styles.header}>
           <div className={styles.title}>{title}</div>
-          <div className={styles.cancelIcon} onClick={onClose}>
-            X
-          </div>
         </div>
         <div className={styles.main}>{children}</div>
       </div>
