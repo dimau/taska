@@ -34,11 +34,10 @@ export function datePrettier(uglyDate: string | undefined): string {
   } ${date.getFullYear()}, ${daysRussian[date.getDay()]}`;
 }
 
+// Function waiting for the string like "2022-12-19T00:00:00.000Z" and return "2022-12-19"
 export function dateFormatterForInput(
   dateString: string | undefined
 ): string | undefined {
   if (!dateString || dateString === "undefined") return undefined;
-
-  const date = new Date(dateString);
-  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+  return dateString.substring(0, 10);
 }

@@ -43,27 +43,32 @@ export const apiSlice = createApi({
 
     // Creating a new task
     createTask: builder.mutation({
-      query: ({ taskList, title }) => ({
-        url: `/lists/${taskList}/tasks`,
-        method: "POST",
-        body: {
-          kind: "tasks#task",
-          //id: string,
-          //etag: string,
-          title: title,
-          //updated: string,
-          //selfLink: string,
-          //parent: string,
-          //position: string,
-          //notes: string,
-          status: "needsAction",
-          //due: string,
-          //completed: string,
-          //deleted: false,
-          //hidden: boolean,
-          //links: [ { type: string, description: string, link: string, }, ],
-        },
-      }),
+      query: ({ taskList, title }) => {
+        const now = new Date(); // assign a new task for today
+        return {
+          url: `/lists/${taskList}/tasks`,
+          method: "POST",
+          body: {
+            kind: "tasks#task",
+            //id: string,
+            //etag: string,
+            title: title,
+            //updated: string,
+            //selfLink: string,
+            //parent: string,
+            //position: string,
+            //notes: string,
+            status: "needsAction",
+            due: `${now.getFullYear()}-${
+              now.getMonth() + 1
+            }-${now.getDate()}T00:00:00.000Z`,
+            //completed: string,
+            //deleted: false,
+            //hidden: boolean,
+            //links: [ { type: string, description: string, link: string, }, ],
+          },
+        };
+      },
       invalidatesTags: ["Task"],
     }),
 
