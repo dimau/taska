@@ -14,7 +14,7 @@
   --ui-primary-green: #83c257;
   --ui-primary-green-bright: #52be06;
   --basic-unit: 0.25rem; /* it's about 4px for standard 16px font-size */
-  --border-radius-standard: 0.5rem; /* it's about 4px for standard 16px font-size */
+  --border-radius-standard: 1rem;
   --font-family-logo: "Roboto", sans-serif;
   --font-family-main: "Roboto", sans-serif;
   --font-size-header-big: 2rem;
@@ -27,6 +27,8 @@ body {
   box-sizing: border-box;
   font-family: var(--font-family-main);
   color: var(--text-dark-gray);
+  background-image: linear-gradient(45deg, #fff 30%, #6dd5fa 60%, #fff 100%);
+  background-attachment: fixed;
 }
 
 .container {

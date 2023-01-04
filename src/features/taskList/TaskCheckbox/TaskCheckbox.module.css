@@ -6,7 +6,6 @@
   grid-row-end: 2;
 
   /* Inner space organizing */
-  padding-left: calc(2 * var(--basic-unit));
   padding-right: calc(2 * var(--basic-unit));
   padding-bottom: calc(2 * var(--basic-unit));
 }

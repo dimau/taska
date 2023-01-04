@@ -1,8 +1,6 @@
 .task {
-  padding-top: calc(4 * var(--basic-unit));
-  padding-bottom: calc(4 * var(--basic-unit));
-  padding-right: calc(4 * var(--basic-unit));
-  border-bottom: 1px solid var(--border-light-gray);
+  margin-bottom: 2px;
+  padding: calc(4 * var(--basic-unit));
   border-radius: var(--border-radius-standard);
   background-color: var(--background-white);
   display: grid;

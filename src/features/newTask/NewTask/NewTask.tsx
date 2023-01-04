@@ -39,7 +39,7 @@ export function NewTask() {
       <input
         type="text"
         className={styles.newTaskInput}
-        placeholder="Add New"
+        placeholder="Add New Task"
         value={newTaskTitle}
         onChange={handleChange}
         autoFocus
