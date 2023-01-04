@@ -6,12 +6,16 @@ import {
   useGetUserInfoQuery,
 } from "../../api/apiGoogleAuthSlice";
 import { useAppSelector } from "../../../app/hooks";
-import { selectAuthAccessToken } from "../authSlice";
+import {
+  selectAuthAccessToken,
+  selectIsAuthTokenNotExpired,
+} from "../authSlice";
 import styles from "./AuthLink.module.css";
 
 export function AuthLink() {
   // Check status for current Google access token if we have such in Store
   const accessToken = useAppSelector(selectAuthAccessToken);
+  const isNotExpired = useAppSelector(selectIsAuthTokenNotExpired);
   const { data: accessTokenInfo, isFetching } = useGetTokenInfoQuery({
     accessToken,
   });
@@ -22,6 +26,7 @@ export function AuthLink() {
   // If user is already authorized proper way
   if (
     accessToken !== "" &&
+    isNotExpired &&
     (accessTokenInfo?.expires_in || isFetching) &&
     userInfo
   ) {

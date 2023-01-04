@@ -13,8 +13,11 @@ export function GoogleAuthorizer() {
     /(?<=access_token=)(.*?)(?=&)/
   )?.[0];
 
+  // Extract amount of seconds until expiring token
+  const expires = window.location.href.match(/(?<=expires_in=)(.*?)(?=&)/)?.[0];
+
   // TODO: make a nice error message
-  if (!accessToken) {
+  if (!accessToken || !expires) {
     return (
       <div>
         Ooops, something goes wrong with Google Authorization, please try later
@@ -22,8 +25,13 @@ export function GoogleAuthorizer() {
     );
   }
 
-  // Save the access token to the app state
-  dispatch(authActions.addGoogleAuth({ accessToken: accessToken }));
+  // Save the access token to the app state and expiration time stamp in milliseconds
+  dispatch(
+    authActions.addGoogleAuth({
+      accessToken: accessToken,
+      expirationTimeStamp: String(Date.now() + +expires * 1000),
+    })
+  );
 
   // and redirect to the page with user tasks
   return <Navigate to="/tasks" />;
