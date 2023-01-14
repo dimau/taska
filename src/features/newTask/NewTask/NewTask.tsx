@@ -21,7 +21,7 @@ export function NewTask() {
         }).unwrap();
         dispatch(newTaskActions.changeNewTaskValue(""));
       } catch (err) {
-        console.error("Failed to save the post: ", err);
+        console.error("Failed to create a new task: ", err);
       }
     }
   };
