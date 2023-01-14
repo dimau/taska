@@ -16,29 +16,16 @@ export function TaskCheckbox({ taskInfo }: TaskCheckboxProps) {
   const [toggleTask, { isLoading: isLoadingToggling }] =
     useToggleTaskStatusMutation();
 
-  const handleToggle = function (e: React.ChangeEvent<HTMLInputElement>) {
-    asyncToggleHandling({
-      taskId: e.target.dataset.taskid as string,
-      taskListId: activeTaskGroupId,
-      newStatus: e.target.checked ? "completed" : "needsAction",
-    });
-  };
+  const handleToggle = async function (e: React.ChangeEvent<HTMLInputElement>) {
+    const taskId = e.target.dataset.taskid as string;
+    const newStatus = e.target.checked ? "completed" : "needsAction";
 
-  const asyncToggleHandling = async ({
-    taskId,
-    taskListId,
-    newStatus,
-  }: {
-    taskId: string;
-    taskListId: string;
-    newStatus: string;
-  }) => {
     if (!isLoadingToggling) {
       try {
         await toggleTask({
-          newStatus,
-          taskListId,
-          taskId,
+          newStatus: newStatus,
+          taskListId: activeTaskGroupId,
+          taskId: taskId,
         });
       } catch (err) {
         console.error("Failed to toggle the task status", err);

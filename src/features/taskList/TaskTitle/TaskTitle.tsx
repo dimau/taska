@@ -38,13 +38,8 @@ export function TaskTitle({ toggleActive, taskInfo }: ITaskTitleProps) {
   };
 
   // Handle Submit new title value to REST API
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    asyncEditTitleHandling();
-    setIsEditing(false);
-  };
-
-  const asyncEditTitleHandling = async () => {
     if (!isLoadingEditing) {
       try {
         await editTask({
@@ -56,6 +51,7 @@ export function TaskTitle({ toggleActive, taskInfo }: ITaskTitleProps) {
         console.error("Failed to edit the task title", err);
       }
     }
+    setIsEditing(false);
   };
 
   return (

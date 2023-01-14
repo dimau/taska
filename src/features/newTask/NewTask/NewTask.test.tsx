@@ -7,17 +7,16 @@ import { store } from "../../../app/store";
 import userEvent from "@testing-library/user-event";
 
 describe("NewTask component", () => {
-  test("Rendering NewTask component", () => {
+  test("Rendering NewTask component and focus on it", () => {
     render(
       <Provider store={store}>
         <NewTask />
       </Provider>
     );
-    const input = screen.getByPlaceholderText(/add new task/i);
-    expect(input).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/add new task/i)).toHaveFocus();
   });
 
-  test("Show typed new task", async () => {
+  test("Show typed text in new task field", async () => {
     const user = userEvent.setup();
     render(
       <Provider store={store}>

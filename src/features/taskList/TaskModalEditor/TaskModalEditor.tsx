@@ -71,18 +71,14 @@ export function TaskModalEditor({ taskInfo, onClose }: ITaskModalEditorProps) {
   // Handle Submit new title, description or due date value to REST API
   const activeTaskGroupId = useAppSelector(selectActiveTaskGroupId);
   const [editTask, { isLoading: isLoadingEditing }] = useEditTaskMutation();
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    asyncEditHandling();
-    onClose();
-  };
-
-  const asyncEditHandling = async () => {
     if (!isLoadingEditing) {
       const editParamsObj: IEditTaskParams = {
         taskListId: activeTaskGroupId,
         taskId: taskInfo.id,
       };
+
       if (titleValue !== taskInfo.title) editParamsObj.title = titleValue;
       if (descriptionValue !== taskInfo.notes)
         editParamsObj.description = descriptionValue;
@@ -98,6 +94,7 @@ export function TaskModalEditor({ taskInfo, onClose }: ITaskModalEditorProps) {
         );
       }
     }
+    onClose();
   };
 
   return (

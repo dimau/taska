@@ -11,12 +11,8 @@ export function NewTask() {
   const [addNewTask, { isLoading }] = useCreateTaskMutation();
   const dispatch = useAppDispatch();
 
-  const handleSubmit = function (e: React.FormEvent<HTMLFormElement>) {
+  const handleSubmit = async function (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    asyncSubmitHandling();
-  };
-
-  const asyncSubmitHandling = async () => {
     if (newTaskTitle.trim() && !isLoading) {
       try {
         await addNewTask({

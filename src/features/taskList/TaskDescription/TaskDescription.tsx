@@ -69,13 +69,8 @@ export function TaskDescription({
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    asyncEditTextHandling();
-    setIsEditing(false);
-  };
-
-  const asyncEditTextHandling = async () => {
     if (!isLoadingEditing) {
       try {
         await editTask({
@@ -87,6 +82,7 @@ export function TaskDescription({
         console.error("Failed to edit the task description", err);
       }
     }
+    setIsEditing(false);
   };
 
   return (

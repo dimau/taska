@@ -64,7 +64,7 @@ export function TaskList() {
   const [deleteTask, { isLoading: isLoadingDeletion }] =
     useDeleteTaskMutation();
 
-  const handleClick = function (
+  const handleClick = async function (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) {
     // Check that we are working with HTMLElement
@@ -76,19 +76,16 @@ export function TaskList() {
       e.target.dataset &&
       e.target.dataset.taskid
     ) {
-      asyncDeleteHandling(e.target.dataset.taskid);
-    }
-  };
-
-  const asyncDeleteHandling = async (taskId: string) => {
-    if (!isLoadingDeletion) {
-      try {
-        await deleteTask({
-          taskList: activeTaskGroupId,
-          taskId: taskId,
-        });
-      } catch (err) {
-        console.error("Failed to delete the task", err);
+      const taskId = e.target.dataset.taskid;
+      if (!isLoadingDeletion) {
+        try {
+          await deleteTask({
+            taskList: activeTaskGroupId,
+            taskId: taskId,
+          });
+        } catch (err) {
+          console.error("Failed to delete the task", err);
+        }
       }
     }
   };
