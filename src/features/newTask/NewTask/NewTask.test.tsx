@@ -8,6 +8,11 @@ import userEvent from "@testing-library/user-event";
 import * as apiSlice from "../../api/apiSlice";
 
 describe("NewTask component", () => {
+  afterEach(async () => {
+    // Clear the text input with new task after each case
+    await userEvent.clear(screen.getByRole("textbox"));
+  });
+
   test("Rendering NewTask component and focus on it", () => {
     render(
       <Provider store={store}>
@@ -102,10 +107,5 @@ describe("NewTask component", () => {
 
     await user.type(screen.getByRole("textbox"), "{enter}");
     expect(addNewTaskMock).toHaveBeenCalledTimes(0);
-  });
-
-  afterEach(async () => {
-    // Clear the text input with new task after each case
-    await userEvent.clear(screen.getByRole("textbox"));
   });
 });
