@@ -33,8 +33,6 @@ describe("NewTask component", () => {
     );
 
     expect(screen.getByRole("textbox")).toHaveDisplayValue("To buy a new car");
-
-    await userEvent.clear(screen.getByRole("textbox"));
   });
 
   test("Submit correct new task", async () => {
@@ -64,11 +62,9 @@ describe("NewTask component", () => {
       title: "To buy milk",
     });
     //expect(screen.getByRole("textbox")).toHaveDisplayValue("");
-
-    await userEvent.clear(screen.getByRole("textbox"));
   });
 
-  test("Try submit an empty new task", async () => {
+  test("Try submit a new task consisting from whitespaces only", async () => {
     const user = userEvent.setup();
 
     // Mock for the hook that used inside NewTask module to handle submit
@@ -87,5 +83,29 @@ describe("NewTask component", () => {
     await user.type(screen.getByRole("textbox"), "{enter}");
 
     expect(addNewTaskMock).toHaveBeenCalledTimes(0);
+  });
+
+  test("Try submit a blank new task", async () => {
+    const user = userEvent.setup();
+
+    // Mock for the hook that used inside NewTask module to handle submit
+    const addNewTaskMock = jest.fn();
+    jest
+      .spyOn(apiSlice, "useCreateTaskMutation")
+      .mockReturnValue([addNewTaskMock, { isLoading: false, reset: () => {} }]);
+
+    render(
+      <Provider store={store}>
+        <NewTask />
+      </Provider>
+    );
+
+    await user.type(screen.getByRole("textbox"), "{enter}");
+    expect(addNewTaskMock).toHaveBeenCalledTimes(0);
+  });
+
+  afterEach(async () => {
+    // Clear the text input with new task after each case
+    await userEvent.clear(screen.getByRole("textbox"));
   });
 });
