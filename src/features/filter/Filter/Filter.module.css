@@ -1,7 +1,9 @@
 .filter {
   display: flex;
   gap: calc(3 * var(--basic-unit));
+  margin-top: calc(2 * var(--basic-unit));
   padding: calc(3 * var(--basic-unit));
   border-top: 1px solid var(--border-dark-gray);
+  border-radius: var(--border-radius-standard);
   background-color: var(--ui-primary);
 }

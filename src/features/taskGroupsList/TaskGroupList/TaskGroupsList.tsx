@@ -30,16 +30,22 @@ export function TaskGroupsList() {
     );
   };
 
+  if (isError && error) {
+    console.error(
+      "An error occurred while trying to collect a list of task groups: " +
+        error.toString()
+    );
+  }
+
   // Show all groups in panel in UI
   return (
     <div className={styles.root}>
       {isError ? (
-        <>
-          Please try later, there was an error with Google Api:{" "}
-          {error.toString()}
-        </>
+        <div className={styles.blockWithMessage}>
+          Make sure you are logged in
+        </div>
       ) : isLoading ? (
-        <>Loading...</>
+        <div className={styles.blockWithMessage}>Loading...</div>
       ) : isSuccess ? (
         <>
           {data.items.map((group) => (

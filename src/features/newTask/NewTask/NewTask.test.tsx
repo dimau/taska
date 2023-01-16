@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import { store } from "../../../app/store";
 import userEvent from "@testing-library/user-event";
 import * as apiSlice from "../../api/apiSlice";
+import { taskGroupListActions } from "../../taskGroupsList/taskGroupListSlice";
 
 describe("NewTask component", () => {
   afterEach(async () => {
@@ -43,6 +44,13 @@ describe("NewTask component", () => {
   test("Submit correct new task", async () => {
     const user = userEvent.setup();
 
+    // To send something to API we should change the empty active task group id to some string
+    const action = taskGroupListActions.changeActiveGroup({
+      activeTaskGroupListId: "HFNJS3434NJN",
+      activeTaskGroupListTitle: "Another Title",
+    });
+    store.dispatch(action);
+
     // Mock for the hook that used inside NewTask module to handle submit
     const addNewTaskMock = jest.fn();
     jest
@@ -57,13 +65,12 @@ describe("NewTask component", () => {
 
     await user.type(
       screen.getByPlaceholderText(/add new task/i),
-      "To buy milk"
+      "To buy milk{enter}"
     );
-    await user.type(screen.getByRole("textbox"), "{enter}");
 
     expect(addNewTaskMock).toHaveBeenCalledTimes(1);
     expect(addNewTaskMock).toHaveBeenCalledWith({
-      taskList: "",
+      taskList: "HFNJS3434NJN",
       title: "To buy milk",
     });
     //expect(screen.getByRole("textbox")).toHaveDisplayValue("");

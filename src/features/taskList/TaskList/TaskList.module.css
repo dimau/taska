@@ -1,6 +1,6 @@
 .taskList {
 }
 
-.allDoneBlock {
+.blockWithMessage {
   padding: calc(4 * var(--basic-unit)) 0;
 }

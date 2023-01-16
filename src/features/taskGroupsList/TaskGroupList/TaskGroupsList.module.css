@@ -3,3 +3,7 @@
   flex-direction: column;
   gap: calc(3 * var(--basic-unit));
 }
+
+.blockWithMessage {
+  padding: calc(4 * var(--basic-unit)) 0;
+}

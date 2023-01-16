@@ -182,19 +182,25 @@ export function TaskList() {
     }
   };
 
+  if (isError && error) {
+    console.error(
+      "An error occurred while trying to collect tasks for the selected task list: " +
+        error.toString()
+    );
+  }
+
   // Show all tasks in UI
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>
       <div className={styles.taskList} onClick={handleClick} ref={wrapperRef}>
         {isError ? (
-          <>
-            Please try later, there was an error with Google Api:{" "}
-            {error.toString()}
-          </>
+          <div className={styles.blockWithMessage}>
+            Make sure you select one of the task lists on the left
+          </div>
         ) : isLoading ? (
-          <>Loading...</>
+          <div className={styles.blockWithMessage}>Loading...</div>
         ) : isSuccess && filteredTasks.length === 0 ? ( // If we don't have any task to show to the user
-          <div className={styles.allDoneBlock}>
+          <div className={styles.blockWithMessage}>
             It's all done, time to relax!
           </div>
         ) : isSuccess ? (

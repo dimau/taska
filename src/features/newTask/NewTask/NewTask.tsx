@@ -13,7 +13,7 @@ export function NewTask() {
 
   const handleSubmit = async function (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (newTaskTitle.trim() && !isLoading) {
+    if (newTaskTitle.trim() && activeTaskGroupId !== "" && !isLoading) {
       try {
         await addNewTask({
           taskList: activeTaskGroupId,
