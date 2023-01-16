@@ -18,7 +18,7 @@ export function NewTask() {
         await addNewTask({
           taskList: activeTaskGroupId,
           title: newTaskTitle.trim(),
-        }).unwrap();
+        });
         dispatch(newTaskActions.changeNewTaskValue(""));
       } catch (err) {
         console.error("Failed to create a new task: ", err);

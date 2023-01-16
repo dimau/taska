@@ -64,14 +64,14 @@ export function TaskDescription({
     if (e.key !== "Enter") return;
     // If user press Enter without Shift => apply the changes to description (end of editing), otherwise - new string
     if (!e.shiftKey && formRef.current) {
-      //formRef.current.submit();
-      formRef.current.dispatchEvent(new Event("submit", { bubbles: true }));
+      e.preventDefault(); // doesn't apply enter click like a new string
+      formRef.current.dispatchEvent(new Event("submit", { bubbles: true })); // fire submit event
     }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!isLoadingEditing) {
+    if (!isLoadingEditing && value !== taskInfo.notes) {
       try {
         await editTask({
           description: value,
