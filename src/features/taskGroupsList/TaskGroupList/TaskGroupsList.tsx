@@ -2,33 +2,11 @@ import React from "react";
 import { TaskGroup } from "../TaskGroup/TaskGroup";
 import styles from "./TaskGroupsList.module.css";
 import { useGetTasksListsQuery } from "../../api/apiSlice";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import {
-  selectActiveTaskGroupId,
-  taskGroupListActions,
-} from "../taskGroupListSlice";
 
 export function TaskGroupsList() {
-  const activeTaskGroupId = useAppSelector(selectActiveTaskGroupId);
   // Load Google task lists (task groups) from Google REST API
-  const { data, isLoading, isSuccess, isError, error } = useGetTasksListsQuery(
-    {}
-  );
-
-  const dispatch = useAppDispatch();
-
-  const handleClick = function (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    groupId: string,
-    groupTitle: string
-  ) {
-    dispatch(
-      taskGroupListActions.changeActiveGroup({
-        activeTaskGroupListId: groupId,
-        activeTaskGroupListTitle: groupTitle,
-      })
-    );
-  };
+  const { data, isLoading, isSuccess, isError, error } =
+    useGetTasksListsQuery(null);
 
   if (isError && error) {
     console.error(
@@ -50,12 +28,9 @@ export function TaskGroupsList() {
         <>
           {data.items.map((group) => (
             <TaskGroup
-              groupName={group.title}
+              groupId={group.id}
+              groupTitle={group.title}
               key={group.id}
-              active={group.id === activeTaskGroupId}
-              onClick={(event) => {
-                handleClick(event, group.id, group.title);
-              }}
             />
           ))}
         </>
