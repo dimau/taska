@@ -6,7 +6,6 @@ import {
   taskGroupListActions,
 } from "../taskGroupListSlice";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { act } from "@testing-library/react";
 
 interface ITaskGroupProps {
   groupId: string;
@@ -21,14 +20,12 @@ export function TaskGroup({ groupId, groupTitle }: ITaskGroupProps) {
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) {
     if (groupId === activeTaskGroupId) return;
-    act(() => {
-      dispatch(
-        taskGroupListActions.changeActiveGroup({
-          activeTaskGroupListId: groupId,
-          activeTaskGroupListTitle: groupTitle,
-        })
-      );
-    });
+    dispatch(
+      taskGroupListActions.changeActiveGroup({
+        activeTaskGroupListId: groupId,
+        activeTaskGroupListTitle: groupTitle,
+      })
+    );
   };
 
   return (
