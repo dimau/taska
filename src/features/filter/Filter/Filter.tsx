@@ -1,34 +1,13 @@
 import React from "react";
 import styles from "./Filter.module.css";
 import { FilterButton } from "../FilterButton/FilterButton";
-import { filterSliceActions, selectCurrentFilter } from "../filterSlice";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 
 export function Filter() {
-  const selectedFilter = useAppSelector(selectCurrentFilter);
-  const dispatch = useAppDispatch();
-
-  const handleChange = function (e: React.ChangeEvent<HTMLInputElement>) {
-    dispatch(filterSliceActions.changeCurrentFilter(e.target.value));
-  };
-
   return (
-    <div className={styles.filter} onChange={handleChange}>
-      <FilterButton
-        value="filter-all"
-        label="All"
-        selectedFilter={selectedFilter}
-      />
-      <FilterButton
-        value="filter-active"
-        label="Active"
-        selectedFilter={selectedFilter}
-      />
-      <FilterButton
-        value="filter-completed"
-        label="Completed"
-        selectedFilter={selectedFilter}
-      />
+    <div className={styles.filter}>
+      <FilterButton value="filter-all" label="All" />
+      <FilterButton value="filter-active" label="Active" />
+      <FilterButton value="filter-completed" label="Completed" />
     </div>
   );
 }
