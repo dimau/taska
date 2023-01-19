@@ -1,6 +1,6 @@
 # Taska 
 
-Taska is a simple TO DO list based on Google Tasks that give you more power on your tasks
+Taska is a personal task tracker system based on Google Tasks that give you more power on your tasks
 
 ## Available Scripts
 
