@@ -16,7 +16,7 @@ export interface IGoogleTaskDescription {
   selfLink: string;
   position: string; // "00000000000000000008",
   notes: string; // "Каждый день решать 2 задачки на DSA",
-  status: string; // "needsAction",
+  status: string; // "needsAction", "completed"
   due: string; // "2022-12-06T00:00:00.000Z",
   links: string[];
 }

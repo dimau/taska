@@ -20,7 +20,17 @@ export function TaskGroupsList() {
     <div className={styles.root}>
       {isError ? (
         <div className={styles.blockWithMessage}>
-          Make sure you are logged in
+          Make sure you are logged in and gave the application access to your
+          tasks.
+          <br />
+          You can revoke access in your Google account on this{" "}
+          <a
+            href="https://myaccount.google.com/permissions?continue=https%3A%2F%2Fmyaccount.google.com%2Fdata-and-privacy
+"
+          >
+            page
+          </a>{" "}
+          and repeat authorization to the service Taska
         </div>
       ) : isLoading ? (
         <div className={styles.blockWithMessage}>Loading...</div>
