@@ -1,6 +1,7 @@
 # Taska 
 
-Taska is a personal task tracker system based on Google Tasks that give you more power on your tasks
+Taska is a personal task tracker system based on Google Tasks that give you more power on your tasks <br>
+You can watch a 1 minute 30 second video on how to use this app - https://youtu.be/YXobcdKTF2c
 
 ## Available Scripts
 
